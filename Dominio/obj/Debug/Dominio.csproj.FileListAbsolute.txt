@@ -1,0 +1,6 @@
+E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Dominio\bin\Debug\Dominio.dll
+E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Dominio\bin\Debug\Dominio.pdb
+E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Dominio\obj\Debug\Dominio.csproj.AssemblyReference.cache
+E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
+E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Dominio\obj\Debug\Dominio.dll
+E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Dominio\obj\Debug\Dominio.pdb
