@@ -1,3 +1,4 @@
+E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\bin\Debug\Negocio.dll.config
 E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\bin\Debug\Negocio.dll
 E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\bin\Debug\Negocio.pdb
 E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\bin\Debug\Azure.Core.dll
