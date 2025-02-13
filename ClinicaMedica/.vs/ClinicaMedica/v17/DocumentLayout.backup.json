@@ -6,19 +6,31 @@
       "AbsoluteMoniker": "D:0:0:{79D2AA88-8842-4EDC-8079-DD60BFAB196E}|..\\Negocio\\Negocio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\negocio\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{79D2AA88-8842-4EDC-8079-DD60BFAB196E}|..\\Negocio\\Negocio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\negocio\\seguridad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\clinicamedica\\login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|solutionrelative:login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\clinicamedica\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|solutionrelative:login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6136A1DF-8A04-45C4-954E-76FB240242AE}|..\\Dominio\\Dominio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\dominio\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6136A1DF-8A04-45C4-954E-76FB240242AE}|..\\Dominio\\Dominio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\dominio\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\clinicamedica\\site.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
+      "RelativeMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|solutionrelative:site.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79D2AA88-8842-4EDC-8079-DD60BFAB196E}|..\\Negocio\\Negocio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\negocio\\seguridad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6136A1DF-8A04-45C4-954E-76FB240242AE}|..\\Dominio\\Dominio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\dominio\\turnotrabajo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6136A1DF-8A04-45C4-954E-76FB240242AE}|..\\Dominio\\Dominio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\dominio\\turno.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6136A1DF-8A04-45C4-954E-76FB240242AE}|..\\Dominio\\Dominio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\dominio\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6136A1DF-8A04-45C4-954E-76FB240242AE}|..\\Dominio\\Dominio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\dominio\\medicoespecialidad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -40,11 +52,50 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Login.aspx.cs",
+              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\Login.aspx.cs",
+              "RelativeDocumentMoniker": "Login.aspx.cs",
+              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\Login.aspx.cs",
+              "RelativeToolTip": "Login.aspx.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAkwBQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-12T23:41:30.199Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Login.aspx",
+              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\Login.aspx",
+              "RelativeDocumentMoniker": "Login.aspx",
+              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\Login.aspx",
+              "RelativeToolTip": "Login.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-02-12T23:34:23.52Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Site.Master",
+              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\Site.Master",
+              "RelativeDocumentMoniker": "Site.Master",
+              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\Site.Master",
+              "RelativeToolTip": "Site.Master",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-02-12T23:32:39.187Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Seguridad.cs",
               "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Negocio\\Seguridad.cs",
               "RelativeDocumentMoniker": "..\\Negocio\\Seguridad.cs",
@@ -63,14 +114,14 @@
               "RelativeDocumentMoniker": "..\\Negocio\\AccesoDatos.cs",
               "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Negocio\\AccesoDatos.cs",
               "RelativeToolTip": "..\\Negocio\\AccesoDatos.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAnwDcAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-12T01:03:31.561Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Usuario.cs",
               "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\Usuario.cs",
               "RelativeDocumentMoniker": "..\\Dominio\\Usuario.cs",
@@ -83,7 +134,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "TurnoTrabajo.cs",
               "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\TurnoTrabajo.cs",
               "RelativeDocumentMoniker": "..\\Dominio\\TurnoTrabajo.cs",
@@ -96,7 +147,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "Turno.cs",
               "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\Turno.cs",
               "RelativeDocumentMoniker": "..\\Dominio\\Turno.cs",
@@ -109,7 +160,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "Paciente.cs",
               "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\Paciente.cs",
               "RelativeDocumentMoniker": "..\\Dominio\\Paciente.cs",
@@ -122,7 +173,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "MedicoEspecialidad.cs",
               "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\MedicoEspecialidad.cs",
               "RelativeDocumentMoniker": "..\\Dominio\\MedicoEspecialidad.cs",
@@ -135,7 +186,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "Medico.cs",
               "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\Medico.cs",
               "RelativeDocumentMoniker": "..\\Dominio\\Medico.cs",
@@ -148,7 +199,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "EstadoTurno.cs",
               "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\EstadoTurno.cs",
               "RelativeDocumentMoniker": "..\\Dominio\\EstadoTurno.cs",
@@ -161,7 +212,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "Especialidad.cs",
               "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\Especialidad.cs",
               "RelativeDocumentMoniker": "..\\Dominio\\Especialidad.cs",
