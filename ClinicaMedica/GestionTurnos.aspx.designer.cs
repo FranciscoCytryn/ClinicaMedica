@@ -11,7 +11,7 @@ namespace ClinicaMedica
 {
 
 
-    public partial class About
+    public partial class GestionTurnos
     {
     }
 }

@@ -16,14 +16,20 @@ namespace ClinicaMedica
         {
             if (Seguridad.SesionActiva(Session["usuario"]))
             {
-                Response.Redirect("Default.aspx");
+                Response.Redirect("Portal.aspx");
             }
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            string email = txtEmail.Text.Trim();
+            string email = txtEmail.Text.Trim();    
             string password = txtPassword.Text.Trim();
+
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                lblMensaje.Text = "Complete ambos campos para continuar.";
+                return; 
+            }
 
             AccesoDatos datos = new AccesoDatos();
             Usuario usuario = datos.ValidarCredenciales(email, password);
@@ -31,7 +37,7 @@ namespace ClinicaMedica
             if (usuario != null)
             {
                 Session["usuario"] = usuario;
-                Response.Redirect("Default.aspx");
+                Response.Redirect("Portal.aspx");
             }
             else
             {

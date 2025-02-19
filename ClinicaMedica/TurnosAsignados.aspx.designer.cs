@@ -11,7 +11,7 @@ namespace ClinicaMedica
 {
 
 
-    public partial class Contact
+    public partial class TurnosAsignados
     {
     }
 }

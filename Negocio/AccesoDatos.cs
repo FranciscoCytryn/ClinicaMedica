@@ -50,7 +50,7 @@ namespace Negocio
         {
             comando.CommandType = CommandType.Text;
             comando.CommandText = consulta;
-            comando.Parameters.Clear(); // Limpiar parámetros
+            comando.Parameters.Clear(); 
         }
 
         public void SetearProcedimiento(string storedProcedure)

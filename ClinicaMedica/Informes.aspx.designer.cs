@@ -11,7 +11,7 @@ namespace ClinicaMedica
 {
 
 
-    public partial class _Default
+    public partial class Informes
     {
     }
 }
