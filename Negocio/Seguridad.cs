@@ -12,37 +12,25 @@ namespace Negocio
         public static bool SesionActiva(object user)
         {
             Usuario usuario = user != null ? (Usuario)user : null;
-            if (usuario != null)
-                return true;
-            else
-                return false;
+            return usuario != null;
         }
 
         public static bool EsAdmin(object user)
         {
             Usuario usuario = user != null ? (Usuario)user : null;
-            if (usuario.Rol == "Administrador")
-                return true;
-            else
-                return false;
+            return usuario != null && usuario.Rol == "Administrador";
         }
 
         public static bool EsRecepcionista(object user)
         {
             Usuario usuario = user != null ? (Usuario)user : null;
-            if (usuario.Rol == "Recepcionista")
-                return true;
-            else
-                return false;
+            return usuario != null && usuario.Rol == "Recepcionista";
         }
 
         public static bool EsMedico(object user)
         {
             Usuario usuario = user != null ? (Usuario)user : null;
-            if (usuario.Rol == "Médico")
-                return true;
-            else
-                return false;
+            return usuario != null && usuario.Rol == "Médico";
         }
     }
 }

@@ -11,43 +11,52 @@ namespace ClinicaMedica
 {
 
 
-    public partial class SiteMaster
+    public partial class Portal
     {
 
         /// <summary>
-        /// lblUsuario control.
+        /// lblNombreUsuario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuario;
+        protected global::System.Web.UI.WebControls.Label lblNombreUsuario;
 
         /// <summary>
-        /// lnkCerrarSesion control.
+        /// btnGestionUsuarios control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkCerrarSesion;
+        protected global::System.Web.UI.WebControls.Button btnGestionUsuarios;
 
         /// <summary>
-        /// MainContent control.
+        /// btnGestionTurnos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.WebControls.Button btnGestionTurnos;
 
         /// <summary>
-        /// btnVolver control.
+        /// btnInformes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnVolver;
+        protected global::System.Web.UI.WebControls.Button btnInformes;
+
+        /// <summary>
+        /// btnTurnosAsignados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTurnosAsignados;
     }
 }
