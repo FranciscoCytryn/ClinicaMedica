@@ -48,7 +48,16 @@ namespace ClinicaMedica
 
         protected void btnVolver_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Portal.aspx");
+             string ultimaPagina = Session["UltimaPagina"] as string;
+
+            if (!string.IsNullOrEmpty(ultimaPagina) && !ultimaPagina.Contains("Login.aspx"))
+            {
+                Response.Redirect(ultimaPagina);
+            }
+            else
+            {
+                Response.Redirect("Portal.aspx");
+            }
         }
     }
 }
