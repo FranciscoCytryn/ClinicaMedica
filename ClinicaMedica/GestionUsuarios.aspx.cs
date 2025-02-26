@@ -15,17 +15,13 @@ namespace ClinicaMedica
         {
             if (!IsPostBack)
             {
-                if (Seguridad.SesionActiva(Session["usuario"]))
-                {
-                    Usuario usuario = (Usuario)Session["usuario"];
-                    if (!Seguridad.EsAdmin(usuario) && !Seguridad.EsRecepcionista(usuario))
-                    {
-                        Response.Redirect("Portal.aspx");
-                    }
-                }
-                else
+                var usuario = Session["usuario"];
+
+                if (usuario == null || !Seguridad.SesionActiva(usuario) || !(Seguridad.EsAdmin(usuario) || Seguridad.EsRecepcionista(usuario)))
                 {
                     Response.Redirect("Login.aspx");
+                    Response.End();
+                    return;
                 }
             }
         }

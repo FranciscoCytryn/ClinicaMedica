@@ -90,5 +90,62 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+
+        public bool ExisteEmail(string email, int? pacienteId = null)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearProcedimiento("sp_ExisteEmailPaciente");
+                datos.SetearParametro("@Email", email);
+                if (pacienteId.HasValue)
+                {
+                    datos.SetearParametro("@PacienteId", pacienteId.Value);
+                }
+
+                datos.EjecutarConsulta();
+
+                if (datos.Lector.Read())
+                {
+                    return Convert.ToInt32(datos.Lector[0]) > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al verificar el email", ex);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+            return false;
+        }
+
+        public void AltaPaciente(Paciente paciente)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearProcedimiento("AltaPaciente");
+                datos.SetearParametro("@Nombre", paciente.Nombre);
+                datos.SetearParametro("@Email", paciente.Email);
+                datos.SetearParametro("@Telefono", paciente.Telefono);
+                datos.SetearParametro("@FechaNacimiento", paciente.FechaNacimiento);
+                datos.SetearParametro("@Direccion", paciente.Direccion);
+
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al dar de alta al paciente", ex);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
     }
 }
