@@ -21,20 +21,17 @@ CREATE PROCEDURE sp_ObtenerEspecialidadesPorMedico
     @MedicoId INT
 AS
 BEGIN
-    SELECT e.Nombre
-    FROM Especialidades e
-    INNER JOIN MedicoEspecialidad me ON e.EspecialidadId = me.EspecialidadId
-    WHERE me.MedicoId = @MedicoId;
+    SELECT 
+        MedicoEspecialidad.EspecialidadId, 
+        MedicoEspecialidad.MedicoId,
+        Especialidades.Nombre
+    FROM 
+        MedicoEspecialidad
+    INNER JOIN 
+        Especialidades ON MedicoEspecialidad.EspecialidadId = Especialidades.EspecialidadId
+    WHERE 
+        MedicoEspecialidad.MedicoId = @MedicoId;
 END
-
-CREATE PROCEDURE sp_ListarPacientes
-AS
-BEGIN
-    SELECT PacienteId, Nombre, Email, Telefono, FechaNacimiento, Direccion
-    FROM Pacientes
-    WHERE Activo = 1;
-END
-GO
 
 CREATE PROCEDURE sp_ActualizarPaciente
     @PacienteId INT,
@@ -107,3 +104,152 @@ BEGIN
         THROW;
     END CATCH;
 END
+
+CREATE PROCEDURE sp_ListarMedicos
+AS
+BEGIN
+    SELECT 
+        m.MedicoId,
+        u.UsuarioId,
+        u.Nombre,
+        u.Email,
+        u.Telefono,
+        u.Activo
+    FROM Medicos m
+    INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId
+    WHERE u.Activo = 1; 
+
+    CREATE PROCEDURE sp_AltaMedico
+    @Nombre NVARCHAR(100),
+    @Email NVARCHAR(100),
+    @Telefono NVARCHAR(20),
+    @Password NVARCHAR(MAX),
+    @Rol NVARCHAR(50),
+    @Especialidades NVARCHAR(MAX) 
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        INSERT INTO Usuarios (Nombre, Email, Telefono, Password, Rol, Activo)
+        VALUES (@Nombre, @Email, @Telefono, @Password, @Rol, 1);
+
+        DECLARE @UsuarioId INT = SCOPE_IDENTITY();
+
+        INSERT INTO Medicos (UsuarioId)
+        VALUES (@UsuarioId);
+
+        DECLARE @MedicoId INT = SCOPE_IDENTITY();
+
+        INSERT INTO MedicoEspecialidad (MedicoId, EspecialidadId)
+        SELECT @MedicoId, value
+        FROM STRING_SPLIT(@Especialidades, ',');
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH;
+END
+
+CREATE PROCEDURE sp_EditarMedico
+    @MedicoId INT,
+    @Nombre NVARCHAR(100),
+    @Email NVARCHAR(100),
+    @Telefono NVARCHAR(20),
+    @Especialidades NVARCHAR(MAX) 
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        UPDATE Usuarios
+        SET Nombre = @Nombre,
+            Email = @Email,
+            Telefono = @Telefono
+        WHERE UsuarioId = (SELECT UsuarioId FROM Medicos WHERE MedicoId = @MedicoId);
+
+        DELETE FROM MedicoEspecialidad
+        WHERE MedicoId = @MedicoId;
+
+        INSERT INTO MedicoEspecialidad (MedicoId, EspecialidadId)
+        SELECT @MedicoId, value
+        FROM STRING_SPLIT(@Especialidades, ',');
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH;
+END
+
+CREATE PROCEDURE sp_BajaMedico
+    @MedicoId INT
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        UPDATE Usuarios
+        SET Activo = 0
+        WHERE UsuarioId = (SELECT UsuarioId FROM Medicos WHERE MedicoId = @MedicoId);
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH;
+END
+
+CREATE PROCEDURE sp_ListarEspecialidades
+AS
+BEGIN
+    SELECT EspecialidadId, Nombre
+    FROM Especialidades;
+END
+
+CREATE PROCEDURE sp_EditarMedico
+    @MedicoId INT,
+    @Nombre VARCHAR(100),
+    @Email VARCHAR(100),
+    @Telefono VARCHAR(20)
+AS
+BEGIN
+    UPDATE Medicos
+    SET Nombre = @Nombre,
+        Email = @Email,
+        Telefono = @Telefono
+    WHERE MedicoId = @MedicoId;
+END
+
+CREATE PROCEDURE sp_EliminarEspecialidadesMedico
+    @MedicoId INT
+AS
+BEGIN
+    DELETE FROM MedicoEspecialidad
+    WHERE MedicoId = @MedicoId;
+END
+
+CREATE PROCEDURE sp_InsertarEspecialidadMedico
+    @MedicoId INT,
+    @EspecialidadId INT
+AS
+BEGIN
+    INSERT INTO MedicoEspecialidad (MedicoId, EspecialidadId)
+    VALUES (@MedicoId, @EspecialidadId);
+END
+
+CREATE PROCEDURE sp_ObtenerMedicoPorId
+    @MedicoId INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT M.MedicoId, U.Nombre, U.Email, U.Telefono, U.Activo
+    FROM Medicos M
+    INNER JOIN Usuarios U ON M.UsuarioId = U.UsuarioId
+    WHERE M.MedicoId = @MedicoId;
+END;

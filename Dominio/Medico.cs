@@ -11,5 +11,6 @@ namespace Dominio
         public int MedicoId { get; set; }
         public int UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
+        public List<Dominio.Especialidad> Especialidades { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace Negocio
     public class AccesoDatos
     {
         private SqlConnection conexion;
-        private SqlCommand comando;
+        public SqlCommand comando;
         private SqlDataReader lector;
 
         public SqlDataReader Lector
@@ -36,11 +36,11 @@ namespace Negocio
 
         public void CerrarConexion()
         {
-            if (lector != null)
+            if (lector != null && !lector.IsClosed)
             {
                 lector.Close();
             }
-            if (conexion.State == ConnectionState.Open)
+            if (conexion != null && conexion.State == ConnectionState.Open)
             {
                 conexion.Close();
             }

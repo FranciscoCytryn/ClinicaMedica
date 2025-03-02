@@ -23,7 +23,6 @@ namespace ClinicaMedica
                     Response.End(); 
                     return;
                 }
-
                 CargarPacientes();
             }
         }
