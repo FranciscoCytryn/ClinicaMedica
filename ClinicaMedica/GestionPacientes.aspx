@@ -109,7 +109,7 @@
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CommandName="Update" CssClass="btn btn-success btn-sm" Enabled='<%# Page.IsValid %>' />
-                                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CommandName="Cancel" CssClass="btn btn-secondary btn-sm" />
+                                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CommandName="Cancel" CssClass="btn btn-secondary btn-sm"  CausesValidation="false" />
                             </EditItemTemplate>
                         </asp:TemplateField>    
                     </Columns>
@@ -139,7 +139,8 @@
                             ControlToValidate="txtNombreNuevo"
                             Display="Dynamic"
                             ErrorMessage="Este campo es obligatorio."
-                            CssClass="text-danger" />
+                            CssClass="text-danger"
+                            ValidationGroup="AltaPaciente"/>
                     </div>
                     <div class="form-group">
                         <label for="txtEmailNuevo">Email</label>
@@ -148,13 +149,15 @@
                             ControlToValidate="txtEmailNuevo"
                             Display="Dynamic"
                             ErrorMessage="Este campo es obligatorio."
-                            CssClass="text-danger" />
+                            CssClass="text-danger"
+                            ValidationGroup="AltaPaciente"/>
                         <asp:RegularExpressionValidator ID="revEmailNuevo" runat="server"
                             ControlToValidate="txtEmailNuevo"
                             ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                             Display="Dynamic"
                             ErrorMessage="Formato de email inválido."
-                            CssClass="text-danger" />
+                            CssClass="text-danger"
+                            ValidationGroup="AltaPaciente"/>
                     </div>
                     <div class="form-group">
                         <label for="txtTelefonoNuevo">Teléfono</label>
@@ -164,7 +167,8 @@
                             ControlToValidate="txtTelefonoNuevo"
                             Display="Dynamic"
                             ErrorMessage="Este campo es obligatorio."
-                            CssClass="text-danger" />
+                            CssClass="text-danger"
+                            ValidationGroup="AltaPaciente"/>
                     </div>
                     <div class="form-group">
                         <label for="txtFechaNacimientoNuevo">Fecha de Nacimiento</label>
@@ -173,7 +177,8 @@
                             ControlToValidate="txtFechaNacimientoNuevo"
                             Display="Dynamic"
                             ErrorMessage="Este campo es obligatorio."
-                            CssClass="text-danger" />
+                            CssClass="text-danger"
+                            ValidationGroup="AltaPaciente"/>
                     </div>
                     <div class="form-group">
                         <label for="txtDireccionNuevo">Dirección</label>
@@ -182,12 +187,13 @@
                             ControlToValidate="txtDireccionNuevo"
                             Display="Dynamic"
                             ErrorMessage="Este campo es obligatorio."
-                            CssClass="text-danger" />
+                            CssClass="text-danger"
+                            ValidationGroup="AltaPaciente"/>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <asp:Button ID="btnAltaPaciente" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnAltaPaciente_Click" />
+                    <asp:Button ID="btnAltaPaciente" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnAltaPaciente_Click"  ValidationGroup="AltaPaciente" />
                 </div>
             </div>
         </div>

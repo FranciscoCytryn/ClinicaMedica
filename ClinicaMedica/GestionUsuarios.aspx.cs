@@ -30,5 +30,9 @@ namespace ClinicaMedica
         {
             Response.Redirect("GestionPacientes.aspx");
         }
+        protected void btnGestionMedicos_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("GestionMedicos.aspx");
+        }
     }
 }
