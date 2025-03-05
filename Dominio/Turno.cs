@@ -13,6 +13,8 @@ namespace Dominio
         public Paciente Paciente { get; set; }
         public int MedicoId { get; set; }
         public Medico Medico { get; set; }
+        public int EspecialidadId { get; set; }  
+        public Especialidad Especialidad { get; set; }  
         public DateTime Fecha { get; set; }
         public TimeSpan HoraInicio { get; set; }
         public EstadoTurno Estado { get; set; }

@@ -225,6 +225,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
+    <Content Include="GestionEmpleados.aspx" />
     <Content Include="GestionMedicos.aspx" />
     <Content Include="GestionPacientes.aspx" />
     <Content Include="GestionTurnos.aspx" />
@@ -276,6 +277,13 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="GestionEmpleados.aspx.cs">
+      <DependentUpon>GestionEmpleados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionEmpleados.aspx.designer.cs">
+      <DependentUpon>GestionEmpleados.aspx</DependentUpon>
+    </Compile>
     <Compile Include="GestionMedicos.aspx.cs">
       <DependentUpon>GestionMedicos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

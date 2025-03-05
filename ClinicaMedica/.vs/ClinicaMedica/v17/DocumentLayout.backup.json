@@ -3,25 +3,18 @@
   "WorkspaceRootPath": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\clinicamedica\\gestionmedicos.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|solutionrelative:gestionmedicos.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\clinicamedica\\gestionturnos.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|solutionrelative:gestionturnos.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\gestionmedicos.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|solutionrelative:gestionmedicos.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{6136A1DF-8A04-45C4-954E-76FB240242AE}|..\\Dominio\\Dominio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\dominio\\estadoturno.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\clinicamedica\\gestionpacientes.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|solutionrelative:gestionpacientes.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{79D2AA88-8842-4EDC-8079-DD60BFAB196E}|..\\Negocio\\Negocio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\negocio\\turnonegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{79D2AA88-8842-4EDC-8079-DD60BFAB196E}|..\\Negocio\\Negocio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\negocio\\mediconegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{79D2AA88-8842-4EDC-8079-DD60BFAB196E}|..\\Negocio\\Negocio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\negocio\\accesodatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{79D2AA88-8842-4EDC-8079-DD60BFAB196E}|..\\Negocio\\Negocio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\negocio\\especialidadnegocio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\gestionturnos.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|solutionrelative:gestionturnos.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,80 +28,57 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GestionPacientes.aspx",
-              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\GestionPacientes.aspx",
-              "RelativeDocumentMoniker": "GestionPacientes.aspx",
-              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\GestionPacientes.aspx",
-              "RelativeToolTip": "GestionPacientes.aspx",
+              "DocumentIndex": 3,
+              "Title": "GestionTurnos.aspx",
+              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\GestionTurnos.aspx",
+              "RelativeDocumentMoniker": "GestionTurnos.aspx",
+              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\GestionTurnos.aspx",
+              "RelativeToolTip": "GestionTurnos.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-03-02T18:52:39.706Z",
+              "WhenOpened": "2025-03-03T22:38:32.111Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "GestionMedicos.aspx.cs",
-              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\GestionMedicos.aspx.cs",
-              "RelativeDocumentMoniker": "GestionMedicos.aspx.cs",
-              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\GestionMedicos.aspx.cs",
-              "RelativeToolTip": "GestionMedicos.aspx.cs",
-              "ViewState": "AgIAAKIAAAAAAAAAAAAswJEAAAANAAAAAAAAAA==",
+              "Title": "GestionTurnos.aspx.cs",
+              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\GestionTurnos.aspx.cs",
+              "RelativeDocumentMoniker": "GestionTurnos.aspx.cs",
+              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\GestionTurnos.aspx.cs",
+              "RelativeToolTip": "GestionTurnos.aspx.cs",
+              "ViewState": "AgIAAB0BAAAAAAAAAAAvwDgBAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T15:56:49.152Z",
+              "WhenOpened": "2025-03-04T00:36:25.234Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "GestionMedicos.aspx",
-              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\GestionMedicos.aspx",
-              "RelativeDocumentMoniker": "GestionMedicos.aspx",
-              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\GestionMedicos.aspx",
-              "RelativeToolTip": "GestionMedicos.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-02-27T23:28:29.802Z",
+              "Title": "EstadoTurno.cs",
+              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\EstadoTurno.cs",
+              "RelativeDocumentMoniker": "..\\Dominio\\EstadoTurno.cs",
+              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\EstadoTurno.cs",
+              "RelativeToolTip": "..\\Dominio\\EstadoTurno.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T23:58:04.633Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AccesoDatos.cs",
-              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Negocio\\AccesoDatos.cs",
-              "RelativeDocumentMoniker": "..\\Negocio\\AccesoDatos.cs",
-              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Negocio\\AccesoDatos.cs",
-              "RelativeToolTip": "..\\Negocio\\AccesoDatos.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAAOAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "TurnoNegocio.cs",
+              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Negocio\\TurnoNegocio.cs",
+              "RelativeDocumentMoniker": "..\\Negocio\\TurnoNegocio.cs",
+              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Negocio\\TurnoNegocio.cs",
+              "RelativeToolTip": "..\\Negocio\\TurnoNegocio.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAqwEcAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T14:45:30.943Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "EspecialidadNegocio.cs",
-              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Negocio\\EspecialidadNegocio.cs",
-              "RelativeDocumentMoniker": "..\\Negocio\\EspecialidadNegocio.cs",
-              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Negocio\\EspecialidadNegocio.cs",
-              "RelativeToolTip": "..\\Negocio\\EspecialidadNegocio.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAowDQAAABPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T14:37:27.198Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MedicoNegocio.cs",
-              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Negocio\\MedicoNegocio.cs",
-              "RelativeDocumentMoniker": "..\\Negocio\\MedicoNegocio.cs",
-              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Negocio\\MedicoNegocio.cs",
-              "RelativeToolTip": "..\\Negocio\\MedicoNegocio.cs",
-              "ViewState": "AgIAAHgAAAAAAAAAAAAkwIkAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T14:16:19.97Z",
+              "WhenOpened": "2025-03-04T20:37:33.286Z",
               "EditorCaption": ""
             }
           ]

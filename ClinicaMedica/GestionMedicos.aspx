@@ -4,10 +4,8 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <!-- Botón para abrir el modal de alta de médico -->
             <asp:Button ID="btnAbrirModal" runat="server" Text="Agregar Médico" CssClass="btn btn-primary" OnClick="btnAbrirModal_Click" />
 
-            <!-- GridView para mostrar los médicos -->
             <asp:GridView ID="gvMedicos" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-striped"
                 OnRowEditing="gvMedicos_RowEditing" OnRowCancelingEdit="gvMedicos_RowCancelingEdit"
                 OnRowUpdating="gvMedicos_RowUpdating" OnRowDeleting="gvMedicos_RowDeleting" DataKeyNames="MedicoId" EnableViewState="true">
@@ -77,6 +75,51 @@
                         </EditItemTemplate>
                     </asp:TemplateField>
 
+                    <asp:TemplateField HeaderText="Turnos de Trabajo">
+                        <ItemTemplate>
+                            <asp:Label ID="lblTurnosTrabajo" runat="server" 
+                                Text='<%# ObtenerTurnosTrabajoFormateados((List<Dominio.TurnoTrabajo>)Eval("TurnosTrabajo")) %>'>
+                            </asp:Label>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="txtHoraEntrada" runat="server" 
+                                Text='<%# Eval("HoraEntrada", "{0:hh\\:mm}") %>' 
+                                CssClass="form-control" placeholder="HH:mm"
+                                oninput="validarFormatoHora(this)" 
+                                onblur="validarFormatoHora(this)">
+                            </asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfvHoraEntrada" runat="server"
+                                ControlToValidate="txtHoraEntrada"
+                                Display="Dynamic"
+                                ErrorMessage="La hora de entrada es obligatoria."
+                                CssClass="text-danger" />
+                            <asp:RegularExpressionValidator ID="revHoraEntrada" runat="server"
+                                ControlToValidate="txtHoraEntrada"
+                                ValidationExpression="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"
+                                Display="Dynamic"
+                                ErrorMessage="Formato de hora inválido (HH:mm)."
+                                CssClass="text-danger" />
+
+                            <asp:TextBox ID="txtHoraSalida" runat="server" 
+                                Text='<%# Eval("HoraSalida", "{0:hh\\:mm}") %>' 
+                                CssClass="form-control mt-2" placeholder="HH:mm"
+                                oninput="validarFormatoHora(this)" 
+                                onblur="validarFormatoHora(this)">
+                            </asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfvHoraSalida" runat="server"
+                                ControlToValidate="txtHoraSalida"
+                                Display="Dynamic"
+                                ErrorMessage="La hora de salida es obligatoria."
+                                CssClass="text-danger" />
+                            <asp:RegularExpressionValidator ID="revHoraSalida" runat="server"
+                                ControlToValidate="txtHoraSalida"
+                                ValidationExpression="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"
+                                Display="Dynamic"
+                                ErrorMessage="Formato de hora inválido (HH:mm)."
+                                CssClass="text-danger" />
+                        </EditItemTemplate>
+                    </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
                             <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Edit" CssClass="btn btn-warning btn-sm" />
@@ -90,7 +133,6 @@
                 </Columns>
             </asp:GridView>
 
-            <!-- Modal de Alta de Médico -->
             <div class="modal fade" id="modalAltaMedico" tabindex="-1" aria-labelledby="modalAltaMedicoLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -152,6 +194,48 @@
                                 <asp:CheckBoxList ID="cblEspecialidadesNuevo" runat="server" CssClass="form-control" DataTextField="Nombre" DataValueField="EspecialidadId">
                                 </asp:CheckBoxList>
                             </div>
+                            <div class="form-group">
+                                <label for="txtHoraEntradaNuevo">Hora de Entrada</label>
+                                <asp:TextBox ID="txtHoraEntradaNuevo" runat="server" 
+                                    CssClass="form-control" placeholder="HH:mm"
+                                    oninput="validarFormatoHora(this)" 
+                                    onblur="validarFormatoHora(this)">
+                                </asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvHoraEntradaNuevo" runat="server"
+                                    ControlToValidate="txtHoraEntradaNuevo"
+                                    Display="Dynamic"
+                                    ErrorMessage="La hora de entrada es obligatoria."
+                                    CssClass="text-danger"
+                                    ValidationGroup="AltaMedico" />
+                                <asp:RegularExpressionValidator ID="revHoraEntradaNuevo" runat="server"
+                                    ControlToValidate="txtHoraEntradaNuevo"
+                                    ValidationExpression="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"
+                                    Display="Dynamic"
+                                    ErrorMessage="Formato de hora inválido (HH:mm)."
+                                    CssClass="text-danger"
+                                    ValidationGroup="AltaMedico" />
+                            </div>
+                            <div class="form-group">
+                                <label for="txtHoraSalidaNuevo">Hora de Salida</label>
+                                <asp:TextBox ID="txtHoraSalidaNuevo" runat="server" 
+                                    CssClass="form-control" placeholder="HH:mm"
+                                    oninput="validarFormatoHora(this)" 
+                                    onblur="validarFormatoHora(this)">
+                                </asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvHoraSalidaNuevo" runat="server"
+                                    ControlToValidate="txtHoraSalidaNuevo"
+                                    Display="Dynamic"
+                                    ErrorMessage="La hora de salida es obligatoria."
+                                    CssClass="text-danger"
+                                    ValidationGroup="AltaMedico" />
+                                <asp:RegularExpressionValidator ID="revHoraSalidaNuevo" runat="server"
+                                    ControlToValidate="txtHoraSalidaNuevo"
+                                    ValidationExpression="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"
+                                    Display="Dynamic"
+                                    ErrorMessage="Formato de hora inválido (HH:mm)."
+                                    CssClass="text-danger"
+                                    ValidationGroup="AltaMedico" />
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -187,6 +271,37 @@
                 return false;
             }
             return true;
+        }
+    </script>
+    <script type="text/javascript">
+        function validarFormatoHora(input) {
+            const regex = /^\d{0,2}:?\d{0,2}$/;
+
+            let valor = input.value;
+
+            if (!regex.test(valor)) {
+                valor = valor.replace(/[^0-9:]/g, '');
+
+                const partes = valor.split(':');
+                if (partes.length > 2) {
+                    valor = partes[0] + ':' + partes[1];
+                }
+
+                if (partes[0] && partes[0].length > 2) {
+                    partes[0] = partes[0].substring(0, 2);
+                }
+                if (partes[1] && partes[1].length > 2) {
+                    partes[1] = partes[1].substring(0, 2);
+                }
+
+                valor = partes.join(':');
+
+                input.value = valor;
+            }
+
+            if (input.value.length === 2 && !input.value.includes(':')) {
+                input.value += ':';
+            }
         }
     </script>
 </asp:Content>

@@ -105,21 +105,24 @@ BEGIN
     END CATCH;
 END
 
-CREATE PROCEDURE sp_ListarMedicos
+CREATE PROCEDURE sp_ListarTurnos
 AS
 BEGIN
     SELECT 
-        m.MedicoId,
-        u.UsuarioId,
-        u.Nombre,
-        u.Email,
-        u.Telefono,
-        u.Activo
-    FROM Medicos m
-    INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId
-    WHERE u.Activo = 1; 
+        t.TurnoId, 
+        p.Nombre AS NombrePaciente,
+        t.Fecha,
+        u.Nombre AS NombreMedico,
+        t.Estado,
+        t.Observaciones,
+        t.HoraInicio
+    FROM Turnos t
+    INNER JOIN Pacientes p ON t.PacienteId = p.PacienteId
+    INNER JOIN Medicos m ON t.MedicoId = m.MedicoId
+    INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId;
+END
 
-    CREATE PROCEDURE sp_AltaMedico
+CREATE PROCEDURE sp_AltaMedico
     @Nombre NVARCHAR(100),
     @Email NVARCHAR(100),
     @Telefono NVARCHAR(20),
@@ -253,3 +256,231 @@ BEGIN
     INNER JOIN Usuarios U ON M.UsuarioId = U.UsuarioId
     WHERE M.MedicoId = @MedicoId;
 END;
+
+CREATE PROCEDURE sp_ListarEmpleados
+AS
+BEGIN
+    SELECT UsuarioId, Nombre, Email, Telefono, Activo
+    FROM Usuarios
+    WHERE Rol = 'Recepcionista' AND Activo = 1;
+END;
+
+CREATE PROCEDURE sp_AgregarEmpleado
+    @Nombre NVARCHAR(100),
+    @Email NVARCHAR(100),
+    @Telefono NVARCHAR(50),
+    @Contraseña NVARCHAR(100),
+    @Activo BIT,
+    @Rol NVARCHAR(50)
+AS
+BEGIN
+    INSERT INTO Usuarios (Nombre, Email, Telefono, Password, Activo, Rol)
+    VALUES (@Nombre, @Email, @Telefono, @Contraseña, @Activo, @Rol);
+END;
+
+CREATE PROCEDURE sp_ModificarEmpleado
+    @Id INT,
+    @Nombre NVARCHAR(100),
+    @Email NVARCHAR(100),
+    @Telefono NVARCHAR(50),
+    @Activo BIT
+AS
+BEGIN
+    UPDATE Usuarios
+    SET Nombre = @Nombre,
+        Email = @Email,
+        Telefono = @Telefono,
+        Activo = @Activo
+    WHERE UsuarioId = @Id;
+END;
+
+CREATE PROCEDURE sp_EliminarEmpleado
+    @Id INT
+AS
+BEGIN
+    UPDATE Usuarios
+    SET Activo = 0
+    WHERE UsuarioId = @Id;
+END;
+
+CREATE PROCEDURE sp_ObtenerTurnosTrabajoPorMedico
+    @MedicoId INT
+AS
+BEGIN
+    SELECT 
+        TurnoTrabajoId,
+        HoraEntrada,
+        HoraSalida
+    FROM TurnosTrabajo
+    WHERE MedicoId = @MedicoId
+    ORDER BY HoraEntrada;
+END
+
+CREATE PROCEDURE sp_ListarTurnos
+AS
+BEGIN
+    SELECT 
+        t.TurnoId, 
+        p.Nombre AS NombrePaciente,
+        t.Fecha,
+        u.Nombre AS NombreMedico,  
+        t.Estado,
+        t.Observaciones,
+        t.HoraInicio,
+        me.EspecialidadId  
+    FROM Turnos t
+    INNER JOIN Pacientes p ON t.PacienteId = p.PacienteId
+    INNER JOIN Medicos m ON t.MedicoId = m.MedicoId
+    INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId  
+    INNER JOIN MedicoEspecialidad me ON m.MedicoId = me.MedicoId  
+END
+
+
+CREATE TRIGGER TRG_ValidarEspecialidadMedico
+ON Turnos
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    DECLARE @MedicoId INT, @EspecialidadId INT;
+
+    SELECT @MedicoId = MedicoId, @EspecialidadId = EspecialidadId FROM inserted;
+
+    IF NOT EXISTS (
+        SELECT 1 
+        FROM MedicoEspecialidad 
+        WHERE MedicoEspecialidad.MedicoId = @MedicoId 
+        AND MedicoEspecialidad.EspecialidadId = @EspecialidadId
+    )
+    BEGIN
+        RAISERROR('El médico no tiene asignada esta especialidad', 16, 1);
+        ROLLBACK TRANSACTION;
+    END
+END
+
+CREATE PROCEDURE ObtenerTurnoPorId
+    @TurnoId INT
+AS
+BEGIN
+    SELECT 
+        t.TurnoId,
+        t.PacienteId,
+        p.Nombre AS PacienteNombre,
+        t.MedicoId,
+        u.Nombre AS MedicoNombre,  
+        t.Fecha,
+        t.HoraInicio,
+        t.Estado,
+        t.Observaciones,
+        t.EspecialidadId
+    FROM Turnos t
+    INNER JOIN Pacientes p ON t.PacienteId = p.PacienteId   
+    INNER JOIN Medicos m ON t.MedicoId = m.MedicoId
+    INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId
+    WHERE t.TurnoId = @TurnoId;
+END
+
+CREATE PROCEDURE sp_ReprogramarTurno
+    @TurnoId INT,
+    @NuevaFecha DATETIME,
+    @NuevaHora TIME
+AS
+BEGIN
+    UPDATE Turnos
+    SET Fecha = @NuevaFecha,
+        HoraInicio = @NuevaHora,
+        Estado = 'Reprogramado'
+    WHERE TurnoId = @TurnoId;
+END
+
+CREATE PROCEDURE sp_CancelarTurno
+    @TurnoId INT
+AS
+BEGIN
+    UPDATE Turnos
+    SET Estado = 'Cancelado'
+    WHERE TurnoId = @TurnoId;
+END
+
+CREATE PROCEDURE sp_NoAsistioTurno
+    @TurnoId INT
+AS
+BEGIN
+    UPDATE Turnos
+    SET Estado = 'No Asistió'
+    WHERE TurnoId = @TurnoId
+    AND Fecha < GETDATE();
+END
+
+CREATE PROCEDURE sp_ObtenerEspecialidadPorId
+    @Id INT
+AS
+BEGIN
+    SELECT EspecialidadId, Nombre
+    FROM Especialidades
+    WHERE EspecialidadId = @Id
+END
+
+CREATE PROCEDURE sp_ObtenerEspecialidadesPorMedicoId
+    @MedicoId INT
+AS
+BEGIN
+    SELECT 
+        e.EspecialidadId,
+        e.Nombre,
+        MIN(t.HoraEntrada) AS HoraInicio, 
+        MAX(t.HoraSalida) AS HoraFin
+    FROM 
+        Especialidades e
+    INNER JOIN 
+        MedicoEspecialidad me ON e.EspecialidadId = me.EspecialidadId
+    INNER JOIN 
+        TurnosTrabajo t ON me.MedicoId = t.MedicoId
+    WHERE 
+        me.MedicoId = @MedicoId
+    GROUP BY 
+        e.EspecialidadId, e.Nombre
+END
+
+CREATE PROCEDURE sp_ObtenerTurnoPorId
+    @TurnoId INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        t.TurnoId,
+        t.Fecha,
+        t.HoraInicio,
+        t.Estado,
+        t.PacienteId,
+        me.MedicoId,
+        u.Nombre AS NombreMedico,
+        e.EspecialidadId,
+        e.Nombre AS NombreEspecialidad
+    FROM Turnos t
+    JOIN MedicoEspecialidad me ON t.EspecialidadId = me.EspecialidadId
+    JOIN Usuarios u ON me.MedicoId = u.UsuarioId
+    JOIN Especialidades e ON t.EspecialidadId = e.EspecialidadId
+    WHERE t.TurnoId = @TurnoId;
+END;
+
+CREATE PROCEDURE sp_CerrarTurno
+    @TurnoId INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE Turnos
+    SET Estado = 'Cerrado'
+    WHERE TurnoId = @TurnoId;
+END;
+
+CREATE PROCEDURE sp_ActualizarObservacionTurno
+    @TurnoId INT,
+    @Observaciones NVARCHAR(MAX)
+AS
+BEGIN
+    UPDATE Turnos
+    SET Observaciones = @Observaciones
+    WHERE TurnoId = @TurnoId;
+END

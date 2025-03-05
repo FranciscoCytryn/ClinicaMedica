@@ -9,7 +9,7 @@ namespace Dominio
     public class TurnoTrabajo
     {
         public int TurnoTrabajoId { get; set; }
-        public int MedicoId { get; set; }
+        public int MedicoId { get; set; }   
         public Medico Medico { get; set; }
         public TimeSpan HoraEntrada { get; set; }
         public TimeSpan HoraSalida { get; set; }

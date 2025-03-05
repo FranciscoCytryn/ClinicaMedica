@@ -11,7 +11,7 @@ namespace ClinicaMedica
 {
 
 
-    public partial class GestionMedicos
+    public partial class GestionEmpleados
     {
 
         /// <summary>
@@ -42,13 +42,13 @@ namespace ClinicaMedica
         protected global::System.Web.UI.WebControls.Button btnAbrirModal;
 
         /// <summary>
-        /// gvMedicos control.
+        /// gvEmpleados control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvMedicos;
+        protected global::System.Web.UI.WebControls.GridView gvEmpleados;
 
         /// <summary>
         /// txtNombreNuevo control.
@@ -132,75 +132,12 @@ namespace ClinicaMedica
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPasswordNuevo;
 
         /// <summary>
-        /// cblEspecialidadesNuevo control.
+        /// btnAltaEmpleado control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList cblEspecialidadesNuevo;
-
-        /// <summary>
-        /// txtHoraEntradaNuevo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHoraEntradaNuevo;
-
-        /// <summary>
-        /// rfvHoraEntradaNuevo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvHoraEntradaNuevo;
-
-        /// <summary>
-        /// revHoraEntradaNuevo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revHoraEntradaNuevo;
-
-        /// <summary>
-        /// txtHoraSalidaNuevo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHoraSalidaNuevo;
-
-        /// <summary>
-        /// rfvHoraSalidaNuevo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvHoraSalidaNuevo;
-
-        /// <summary>
-        /// revHoraSalidaNuevo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revHoraSalidaNuevo;
-
-        /// <summary>
-        /// btnAltaMedico control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAltaMedico;
+        protected global::System.Web.UI.WebControls.Button btnAltaEmpleado;
     }
 }

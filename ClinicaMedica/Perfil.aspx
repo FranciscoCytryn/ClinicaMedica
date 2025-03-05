@@ -29,6 +29,12 @@
                                 <asp:Label ID="lblEspecialidades" runat="server" CssClass="form-control-plaintext"></asp:Label>
                             </div>
                         </asp:Panel>
+                        <asp:Panel ID="pnlHorarioTrabajo" runat="server" Visible="false">
+                            <div class="form-group">
+                                <label><strong>Horario de Trabajo:</strong></label>
+                                <asp:Label ID="lblHorarioTrabajo" runat="server" CssClass="form-control-plaintext"></asp:Label>
+                            </div>
+                        </asp:Panel>
                     </div>
                 </div>
             </div>

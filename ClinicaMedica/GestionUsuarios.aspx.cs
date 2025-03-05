@@ -23,6 +23,10 @@ namespace ClinicaMedica
                     Response.End();
                     return;
                 }
+                if (usuario != null && Seguridad.SesionActiva(usuario) && Seguridad.EsAdmin(usuario))
+                {
+                    btnGestionEmpleados.Visible = true;
+                }
             }
         }
 
@@ -33,6 +37,10 @@ namespace ClinicaMedica
         protected void btnGestionMedicos_Click(object sender, EventArgs e)
         {
             Response.Redirect("GestionMedicos.aspx");
+        }
+        protected void btnGestionEmpleados_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("GestionEmpleados.aspx");
         }
     }
 }

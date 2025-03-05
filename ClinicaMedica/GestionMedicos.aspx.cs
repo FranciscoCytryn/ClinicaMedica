@@ -33,6 +33,20 @@ namespace ClinicaMedica
             MedicoNegocio medicoNegocio = new MedicoNegocio();
             List<Medico> medicos = medicoNegocio.Listar();
 
+            foreach (var medico in medicos)
+            {
+                if (medico.TurnosTrabajo != null && medico.TurnosTrabajo.Count > 0)
+                {
+                    medico.HoraEntrada = medico.TurnosTrabajo[0].HoraEntrada;
+                    medico.HoraSalida = medico.TurnosTrabajo[0].HoraSalida;
+                }
+                else
+                {
+                    medico.HoraEntrada = TimeSpan.Zero;
+                    medico.HoraSalida = TimeSpan.Zero;
+                }
+            }
+
             gvMedicos.DataSource = medicos;
             gvMedicos.DataBind();
         }
@@ -88,8 +102,8 @@ namespace ClinicaMedica
             try
             {
                 int medicoId = Convert.ToInt32(gvMedicos.DataKeys[e.RowIndex].Value);
-                CheckBoxList cblEspecialidades = (CheckBoxList)gvMedicos.Rows[e.RowIndex].FindControl("cblEspecialidades");
 
+                CheckBoxList cblEspecialidades = (CheckBoxList)gvMedicos.Rows[e.RowIndex].FindControl("cblEspecialidades");
                 List<Dominio.Especialidad> especialidadesSeleccionadas = new List<Dominio.Especialidad>();
                 foreach (ListItem item in cblEspecialidades.Items)
                 {
@@ -106,14 +120,30 @@ namespace ClinicaMedica
                 MedicoNegocio medicoNegocio = new MedicoNegocio();
                 medicoNegocio.ActualizarEspecialidadesMedico(medicoId, especialidadesSeleccionadas);
 
-                gvMedicos.EditIndex = -1;
+                TextBox txtHoraEntrada = (TextBox)gvMedicos.Rows[e.RowIndex].FindControl("txtHoraEntrada");
+                TextBox txtHoraSalida = (TextBox)gvMedicos.Rows[e.RowIndex].FindControl("txtHoraSalida");
 
+                if (txtHoraEntrada != null && txtHoraSalida != null &&
+                    !string.IsNullOrEmpty(txtHoraEntrada.Text) && !string.IsNullOrEmpty(txtHoraSalida.Text))
+                {
+                    TimeSpan horaEntrada = TimeSpan.Parse(txtHoraEntrada.Text);
+                    TimeSpan horaSalida = TimeSpan.Parse(txtHoraSalida.Text);
+
+                    if (horaEntrada >= horaSalida)
+                    {
+                        ScriptManager.RegisterStartupScript(this, GetType(), "showerror", "alert('La hora de entrada debe ser menor que la hora de salida.');", true);
+                        return;
+                    }
+
+                    ActualizarTurnoTrabajo(medicoId, horaEntrada, horaSalida);
+                }
+
+                gvMedicos.EditIndex = -1;
                 CargarMedicos();
             }
             catch (Exception ex)
             {
-
-                ScriptManager.RegisterStartupScript(this, GetType(), "showerror", $"alert('Error al actualizar las especialidades: {ex.Message}');", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "showerror", $"alert('Error al actualizar el médico: {ex.Message}');", true);
             }
         }
 
@@ -144,6 +174,11 @@ namespace ClinicaMedica
         {
             try
             {
+                if (!ValidarFormulario())
+                {
+                    return; 
+                }
+
                 string nombre = txtNombreNuevo.Text;
                 string email = txtEmailNuevo.Text;
                 string telefono = txtTelefonoNuevo.Text;
@@ -162,7 +197,19 @@ namespace ClinicaMedica
                     }
                 }
 
-                // Crear el objeto Medico
+                List<TurnoTrabajo> turnosTrabajo = new List<TurnoTrabajo>();
+                if (!string.IsNullOrEmpty(txtHoraEntradaNuevo.Text) && !string.IsNullOrEmpty(txtHoraSalidaNuevo.Text))
+                {
+                    TimeSpan horaEntrada = TimeSpan.Parse(txtHoraEntradaNuevo.Text);
+                    TimeSpan horaSalida = TimeSpan.Parse(txtHoraSalidaNuevo.Text);
+
+                    turnosTrabajo.Add(new TurnoTrabajo
+                    {
+                        HoraEntrada = horaEntrada,
+                        HoraSalida = horaSalida
+                    });
+                }
+
                 Medico nuevoMedico = new Medico
                 {
                     Usuario = new Usuario
@@ -174,7 +221,8 @@ namespace ClinicaMedica
                         Rol = "Médico",
                         Activo = true
                     },
-                    Especialidades = especialidades
+                    Especialidades = especialidades,
+                    TurnosTrabajo = turnosTrabajo 
                 };
 
                 MedicoNegocio medicoNegocio = new MedicoNegocio();
@@ -183,7 +231,6 @@ namespace ClinicaMedica
                 ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Médico dado de alta correctamente.');", true);
 
                 LimpiarFormulario();
-
                 CargarMedicos();
 
                 ScriptManager.RegisterStartupScript(this, GetType(), "cerrarModal", "$('#modalAltaMedico').modal('hide');", true);
@@ -192,6 +239,36 @@ namespace ClinicaMedica
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "showerror", $"alert('Error al dar de alta el médico: {ex.Message}');", true);
             }
+        }
+
+        private bool ValidarFormulario()
+        {
+            if (string.IsNullOrEmpty(txtNombreNuevo.Text) ||
+                string.IsNullOrEmpty(txtEmailNuevo.Text) ||
+                string.IsNullOrEmpty(txtTelefonoNuevo.Text) ||
+                string.IsNullOrEmpty(txtPasswordNuevo.Text))
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "showerror", "alert('Todos los campos son obligatorios.');", true);
+                return false;
+            }
+
+            if (!string.IsNullOrEmpty(txtHoraEntradaNuevo.Text) || !string.IsNullOrEmpty(txtHoraSalidaNuevo.Text))
+            {
+                if (!TimeSpan.TryParse(txtHoraEntradaNuevo.Text, out TimeSpan horaEntrada) ||
+                    !TimeSpan.TryParse(txtHoraSalidaNuevo.Text, out TimeSpan horaSalida))
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showerror", "alert('Formato de hora inválido. Use HH:mm.');", true);
+                    return false;
+                }
+
+                if (horaEntrada >= horaSalida)
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showerror", "alert('La hora de entrada debe ser menor que la hora de salida.');", true);
+                    return false;
+                }
+            }
+
+            return true; 
         }
 
         protected void gvMedicos_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -232,6 +309,39 @@ namespace ClinicaMedica
         {
             CargarEspecialidadesEnModal();
             ScriptManager.RegisterStartupScript(this, GetType(), "mostrarModal", "$('#modalAltaMedico').modal('show');", true);
+        }
+
+        protected string ObtenerTurnosTrabajoFormateados(List<TurnoTrabajo> turnosTrabajo)
+        {
+            if (turnosTrabajo == null || turnosTrabajo.Count == 0)
+                return "Sin turnos asignados";
+
+            var turnosFormateados = turnosTrabajo
+                .Select(t => $"{t.HoraEntrada:hh\\:mm} - {t.HoraSalida:hh\\:mm}")
+                .ToList();
+
+            return string.Join("<br />", turnosFormateados);
+        }
+        private void ActualizarTurnoTrabajo(int medicoId, TimeSpan horaEntrada, TimeSpan horaSalida)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearProcedimiento("sp_ActualizarTurnoTrabajo");
+                datos.SetearParametro("@MedicoId", medicoId);
+                datos.SetearParametro("@HoraEntrada", horaEntrada);
+                datos.SetearParametro("@HoraSalida", horaSalida);
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar el turno de trabajo", ex);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
         }
     }
 }

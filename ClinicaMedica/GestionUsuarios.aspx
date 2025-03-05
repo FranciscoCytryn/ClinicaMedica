@@ -11,6 +11,7 @@
             <div class="col-md-12 text-center">
                 <asp:Button ID="btnGestionPacientes" runat="server" Text="Gestionar Pacientes" CssClass="btn btn-primary m-2" OnClick="btnGestionPacientes_Click" />
                 <asp:Button ID="btnGestionMedicos" runat="server" Text="Gestionar Médicos" CssClass="btn btn-primary m-2" OnClick="btnGestionMedicos_Click" />
+                  <asp:Button ID="btnGestionEmpleados" runat="server" Text="Gestionar Empleados" CssClass="btn btn-primary m-2" OnClick="btnGestionEmpleados_Click" Visible="false" />
             </div>
         </div>
     </div>
