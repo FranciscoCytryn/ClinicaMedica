@@ -103,7 +103,15 @@ namespace ClinicaMedica
             {
                 int medicoId = Convert.ToInt32(gvMedicos.DataKeys[e.RowIndex].Value);
 
-                CheckBoxList cblEspecialidades = (CheckBoxList)gvMedicos.Rows[e.RowIndex].FindControl("cblEspecialidades");
+                GridViewRow row = gvMedicos.Rows[e.RowIndex];
+                string nombre = ((TextBox)row.FindControl("txtNombre")).Text;
+                string email = ((TextBox)row.FindControl("txtEmail")).Text;
+                string telefono = ((TextBox)row.FindControl("txtTelefono")).Text;
+
+                MedicoNegocio medicoNegocio = new MedicoNegocio();
+                medicoNegocio.EditarMedico(medicoId, nombre, email, telefono);
+
+                CheckBoxList cblEspecialidades = (CheckBoxList)row.FindControl("cblEspecialidades");
                 List<Dominio.Especialidad> especialidadesSeleccionadas = new List<Dominio.Especialidad>();
                 foreach (ListItem item in cblEspecialidades.Items)
                 {
@@ -116,12 +124,10 @@ namespace ClinicaMedica
                         });
                     }
                 }
-
-                MedicoNegocio medicoNegocio = new MedicoNegocio();
                 medicoNegocio.ActualizarEspecialidadesMedico(medicoId, especialidadesSeleccionadas);
 
-                TextBox txtHoraEntrada = (TextBox)gvMedicos.Rows[e.RowIndex].FindControl("txtHoraEntrada");
-                TextBox txtHoraSalida = (TextBox)gvMedicos.Rows[e.RowIndex].FindControl("txtHoraSalida");
+                TextBox txtHoraEntrada = (TextBox)row.FindControl("txtHoraEntrada");
+                TextBox txtHoraSalida = (TextBox)row.FindControl("txtHoraSalida");
 
                 if (txtHoraEntrada != null && txtHoraSalida != null &&
                     !string.IsNullOrEmpty(txtHoraEntrada.Text) && !string.IsNullOrEmpty(txtHoraSalida.Text))
@@ -228,6 +234,12 @@ namespace ClinicaMedica
                 MedicoNegocio medicoNegocio = new MedicoNegocio();
                 medicoNegocio.AltaMedico(nuevoMedico);
 
+                EmailService emailService = new EmailService();
+                string asunto = emailService.CrearAsuntoAltaMedico();
+                string especialidadesFormateadas = string.Join(", ", especialidades);
+                string cuerpo = emailService.CrearTemplateAltaMedico(nombre, email, especialidadesFormateadas, txtHoraEntradaNuevo.Text, txtHoraSalidaNuevo.Text);
+                emailService.EnviarCorreo(email, asunto, cuerpo);
+
                 ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Médico dado de alta correctamente.');", true);
 
                 LimpiarFormulario();
@@ -269,11 +281,6 @@ namespace ClinicaMedica
             }
 
             return true; 
-        }
-
-        protected void gvMedicos_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-
         }
 
         protected void cvEspecialidades_ServerValidate(object source, ServerValidateEventArgs args)

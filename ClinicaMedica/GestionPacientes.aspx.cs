@@ -112,6 +112,12 @@ namespace ClinicaMedica
 
                     pacienteNegocio.AltaPaciente(nuevoPaciente);
 
+                    EmailService emailService = new EmailService();
+                    string asunto = emailService.CrearAsuntoAltaPaciente();
+                    string cuerpo = emailService.CrearTemplateAltaPaciente(nombre);
+
+                    emailService.EnviarCorreo(email, asunto, cuerpo);
+
                     ScriptManager.RegisterStartupScript(this, GetType(), "CerrarModal", "$('#modalAltaPaciente').modal('hide');", true);
                     CargarPacientes();
                     MostrarMensaje("Paciente dado de alta correctamente.", false);

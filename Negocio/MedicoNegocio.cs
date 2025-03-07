@@ -113,29 +113,6 @@ namespace Negocio
             }
         }
 
-        public void EditarMedico(Medico medico)
-        {
-            try
-            {
-                datos.SetearProcedimiento("sp_EditarMedico");
-                datos.SetearParametro("@MedicoId", medico.MedicoId);
-                datos.SetearParametro("@Nombre", medico.Usuario.Nombre);
-                datos.SetearParametro("@Email", medico.Usuario.Email);
-                datos.SetearParametro("@Telefono", medico.Usuario.Telefono);
-                datos.SetearParametro("@Especialidades", ObtenerIdsEspecialidades(medico.Especialidades));
-
-                datos.EjecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al editar el médico", ex);
-            }
-            finally
-            {
-                datos.CerrarConexion();
-            }
-        }
-
         public void EditarMedico(int medicoId, string nombre, string email, string telefono)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -294,14 +271,11 @@ namespace Negocio
 
             try
             {
-                // Configurar el procedimiento almacenado y el parámetro
                 datos.SetearProcedimiento("sp_ListarMedicosPorEspecialidad");
                 datos.SetearParametro("@EspecialidadId", especialidadId);
 
-                // Ejecutar la consulta
                 datos.EjecutarConsulta();
 
-                // Recorrer los resultados y crear objetos Medico
                 while (datos.Lector.Read())
                 {
                     Medico medico = new Medico

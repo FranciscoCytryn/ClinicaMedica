@@ -3,7 +3,6 @@
     <div class="container">
         <h2>Alta de Turno</h2>
 
-        <!-- Paso 1: Seleccionar paciente -->
         <div class="form-group">
             <label for="ddlPaciente">Seleccionar Paciente:</label>
             <asp:DropDownList ID="ddlPaciente" runat="server" CssClass="form-control" AutoPostBack="true"
@@ -14,21 +13,18 @@
                 OnClick="btnNuevoPaciente_Click" />
         </div>
 
-        <!-- Paso 2: Seleccionar especialidad -->
         <div class="form-group">
             <label for="ddlEspecialidad">Seleccionar Especialidad:</label>
             <asp:DropDownList ID="ddlEspecialidad" runat="server" CssClass="form-control" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlEspecialidad_SelectedIndexChanged" Enabled="false"></asp:DropDownList>
         </div>
 
-        <!-- Paso 3: Seleccionar médico -->
         <div class="form-group">
             <label for="ddlMedico">Seleccionar Médico:</label>
             <asp:DropDownList ID="ddlMedico" runat="server" CssClass="form-control" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlMedico_SelectedIndexChanged" Enabled="false"></asp:DropDownList>
         </div>
 
-        <!-- Paso 4: Seleccionar fecha y hora -->
         <div class="form-group">
             <label for="txtFecha">Fecha:</label>
             <asp:TextBox ID="txtFecha" runat="server" CssClass="form-control" TextMode="Date" AutoPostBack="true"
@@ -40,20 +36,17 @@
                 OnSelectedIndexChanged="ddlHora_SelectedIndexChanged" Enabled="false"></asp:DropDownList>
         </div>
 
-        <!-- Paso 5: Observación -->
         <div class="form-group">
             <label for="txtObservacion">Observación:</label>
             <asp:TextBox ID="txtObservacion" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3"
                 Enabled="false"></asp:TextBox>
         </div>
 
-        <!-- Botón "Volver al paso anterior" -->
         <div class="form-group">
             <asp:Button ID="btnVolverPasoAnterior" runat="server" Text="Volver al paso anterior" CssClass="btn btn-warning"
                 OnClick="btnVolverPasoAnterior_Click" Visible="false" />
         </div>
 
-        <!-- Botón "Confirmar Turno" -->
         <div class="form-group">
             <asp:Button ID="btnConfirmarTurno" runat="server" Text="Confirmar Turno" CssClass="btn btn-primary"
                 OnClick="btnConfirmarTurno_Click" Enabled="false" />
