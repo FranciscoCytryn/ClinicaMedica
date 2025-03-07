@@ -15,6 +15,16 @@
     {
       "AbsoluteMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\gestionturnos.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|solutionrelative:gestionturnos.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\clinicamedica\\altaturno.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B3CF11A4-D4F8-436A-BCCF-239EB924DE6B}|ClinicaMedica.csproj|solutionrelative:altaturno.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6136A1DF-8A04-45C4-954E-76FB240242AE}|..\\Dominio\\Dominio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\dominio\\turno.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6136A1DF-8A04-45C4-954E-76FB240242AE}|..\\Dominio\\Dominio.csproj|e:\\desktop\\pancho\\programaci\u00F3n\\utn tecnicatura\\2023-02\\programacion iii\\2025\\dominio\\especialidad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -36,7 +46,7 @@
               "RelativeToolTip": "GestionTurnos.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-03-03T22:38:32.111Z",
+              "WhenOpened": "2025-03-05T22:39:45.226Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
@@ -48,9 +58,9 @@
               "RelativeDocumentMoniker": "GestionTurnos.aspx.cs",
               "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\GestionTurnos.aspx.cs",
               "RelativeToolTip": "GestionTurnos.aspx.cs",
-              "ViewState": "AgIAAIYAAAAAAAAAAAAhwJUAAACGAAAAAAAAAA==",
+              "ViewState": "AgIAAH8BAAAAAAAAAADwv5IBAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T00:36:25.234Z",
+              "WhenOpened": "2025-03-06T23:52:06.352Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
@@ -62,10 +72,22 @@
               "RelativeDocumentMoniker": "..\\Dominio\\EstadoTurno.cs",
               "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\EstadoTurno.cs",
               "RelativeToolTip": "..\\Dominio\\EstadoTurno.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T23:58:04.633Z",
-              "IsPinned": true,
+              "WhenOpened": "2025-03-07T01:50:41.779Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AltaTurno.aspx.cs",
+              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\AltaTurno.aspx.cs",
+              "RelativeDocumentMoniker": "AltaTurno.aspx.cs",
+              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\ClinicaMedica\\AltaTurno.aspx.cs",
+              "RelativeToolTip": "AltaTurno.aspx.cs",
+              "ViewState": "AgIAAFsBAAAAAAAAAAAwwLwBAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-07T01:18:03.097Z",
               "EditorCaption": ""
             },
             {
@@ -76,9 +98,35 @@
               "RelativeDocumentMoniker": "..\\Negocio\\TurnoNegocio.cs",
               "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Negocio\\TurnoNegocio.cs",
               "RelativeToolTip": "..\\Negocio\\TurnoNegocio.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAqwEcAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAFYBAAAAAAAAAADwv3YBAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T20:37:33.286Z",
+              "WhenOpened": "2025-03-07T00:21:00.303Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Especialidad.cs",
+              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\Especialidad.cs",
+              "RelativeDocumentMoniker": "..\\Dominio\\Especialidad.cs",
+              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\Especialidad.cs",
+              "RelativeToolTip": "..\\Dominio\\Especialidad.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-07T00:18:47.128Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Turno.cs",
+              "DocumentMoniker": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\Turno.cs",
+              "RelativeDocumentMoniker": "..\\Dominio\\Turno.cs",
+              "ToolTip": "E:\\Desktop\\Pancho\\Programaci\u00F3n\\UTN Tecnicatura\\2023-02\\Programacion III\\2025\\Dominio\\Turno.cs",
+              "RelativeToolTip": "..\\Dominio\\Turno.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-07T00:15:14.641Z",
               "EditorCaption": ""
             }
           ]

@@ -286,6 +286,50 @@ namespace Negocio
 
             return medico;
         }
+
+        public List<Medico> ListarMedicosPorEspecialidad(int especialidadId)
+        {
+            List<Medico> medicos = new List<Medico>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                // Configurar el procedimiento almacenado y el parámetro
+                datos.SetearProcedimiento("sp_ListarMedicosPorEspecialidad");
+                datos.SetearParametro("@EspecialidadId", especialidadId);
+
+                // Ejecutar la consulta
+                datos.EjecutarConsulta();
+
+                // Recorrer los resultados y crear objetos Medico
+                while (datos.Lector.Read())
+                {
+                    Medico medico = new Medico
+                    {
+                        MedicoId = (int)datos.Lector["MedicoId"],
+                        Usuario = new Usuario
+                        {
+                            Nombre = datos.Lector["Nombre"].ToString()
+                        },
+                        Especialidades = ObtenerEspecialidadesPorMedico((int)datos.Lector["MedicoId"]),
+                        TurnosTrabajo = ObtenerTurnosTrabajoPorMedico((int)datos.Lector["MedicoId"])
+                    };
+
+                    medicos.Add(medico);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar médicos por especialidad", ex);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+            return medicos;
+        }
+
     }
 }
 

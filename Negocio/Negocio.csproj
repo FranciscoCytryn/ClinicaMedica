@@ -160,6 +160,7 @@
     <Compile Include="AccesoDatos.cs" />
     <Compile Include="EmpleadoNegocio.cs" />
     <Compile Include="EspecialidadNegocio.cs" />
+    <Compile Include="GestionPasos.cs" />
     <Compile Include="MedicoNegocio.cs" />
     <Compile Include="PacienteNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

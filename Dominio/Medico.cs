@@ -17,5 +17,9 @@ namespace Dominio
         public TimeSpan HoraSalida { get; set; }
         public int EspecialidadId { get; set; }
         public Especialidad Especialidad { get; set; }
+        public string Nombre
+        {
+            get { return Usuario?.Nombre; }
+        }
     }
 }

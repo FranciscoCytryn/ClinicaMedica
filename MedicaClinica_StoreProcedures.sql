@@ -105,7 +105,7 @@ BEGIN
     END CATCH;
 END
 
-CREATE PROCEDURE sp_ListarTurnos
+CREATE PROCEDURE [dbo].[sp_ListarTurnos]
 AS
 BEGIN
     SELECT 
@@ -113,14 +113,18 @@ BEGIN
         p.Nombre AS NombrePaciente,
         t.Fecha,
         u.Nombre AS NombreMedico,
+        e.Nombre AS NombreEspecialidad,  -- Ahora solo se trae la especialidad específica del turno
         t.Estado,
         t.Observaciones,
         t.HoraInicio
     FROM Turnos t
     INNER JOIN Pacientes p ON t.PacienteId = p.PacienteId
     INNER JOIN Medicos m ON t.MedicoId = m.MedicoId
-    INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId;
+    INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId
+    INNER JOIN Especialidades e ON t.EspecialidadId = e.EspecialidadId  -- Relación directa con la especialidad del turno
+    ORDER BY t.Fecha DESC;  -- Ordena por Fecha de manera descendente
 END
+
 
 CREATE PROCEDURE sp_AltaMedico
     @Nombre NVARCHAR(100),
@@ -235,6 +239,18 @@ BEGIN
     DELETE FROM MedicoEspecialidad
     WHERE MedicoId = @MedicoId;
 END
+
+
+CREATE PROCEDURE [dbo].[sp_ListarPacientes]
+AS
+BEGIN
+    SELECT PacienteId, Nombre, Email, Telefono, FechaNacimiento, Direccion
+    FROM Pacientes
+    WHERE Activo = 1;
+END
+GO
+
+
 
 CREATE PROCEDURE sp_InsertarEspecialidadMedico
     @MedicoId INT,
@@ -484,3 +500,128 @@ BEGIN
     SET Observaciones = @Observaciones
     WHERE TurnoId = @TurnoId;
 END
+
+CREATE PROCEDURE sp_ActualizarEstadoTurno
+    @TurnoId INT,
+    @Estado VARCHAR(50)
+AS
+BEGIN
+    UPDATE Turnos
+    SET Estado = @Estado
+    WHERE TurnoId = @TurnoId;
+END
+GO
+
+CREATE PROCEDURE sp_ListarMedicosPorEspecialidad
+    @EspecialidadId INT
+AS
+BEGIN
+    SELECT m.MedicoId, u.Nombre
+    FROM Medicos m
+    INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId
+    INNER JOIN MedicoEspecialidad me ON m.MedicoId = me.MedicoId
+    WHERE me.EspecialidadId = @EspecialidadId
+      AND u.Activo = 1; -- Solo médicos activos
+END
+
+CREATE PROCEDURE sp_VerificarDisponibilidadMedico
+    @MedicoId INT,
+    @Fecha DATE,
+    @Hora TIME
+AS
+BEGIN
+    -- Verificar si el médico tiene un turno en la misma fecha y hora
+    IF EXISTS (
+        SELECT 1
+        FROM Turnos
+        WHERE MedicoId = @MedicoId
+          AND Fecha = @Fecha
+          AND HoraInicio = @Hora
+    )
+    BEGIN
+        SELECT 0 AS Disponible; -- No disponible
+    END
+    ELSE
+    BEGIN
+        -- Verificar si la hora está dentro del horario de trabajo del médico
+        IF EXISTS (
+            SELECT 1
+            FROM TurnosTrabajo
+            WHERE MedicoId = @MedicoId
+              AND @Hora >= HoraEntrada
+              AND @Hora <= HoraSalida
+        )
+        BEGIN
+            SELECT 1 AS Disponible; -- Disponible
+        END
+        ELSE
+        BEGIN
+            SELECT 0 AS Disponible; -- No disponible
+        END
+    END
+END
+
+CREATE PROCEDURE sp_ListarTurnosPorMedicoYFecha
+    @MedicoId INT,
+    @Fecha DATE
+AS
+BEGIN
+    SELECT 
+        t.TurnoId,
+        t.Fecha,
+        t.HoraInicio,
+        t.Estado,
+        t.Observaciones,
+        p.PacienteId,
+        p.Nombre AS NombrePaciente,
+        m.MedicoId,
+        u.Nombre AS NombreMedico
+    FROM Turnos t
+    INNER JOIN Pacientes p ON t.PacienteId = p.PacienteId
+    INNER JOIN Medicos m ON t.MedicoId = m.MedicoId
+    INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId
+    WHERE t.MedicoId = @MedicoId
+      AND t.Fecha = @Fecha
+      AND t.Estado NOT IN ('Cancelado', 'No Asistió'); -- Excluir turnos cancelados o no asistidos
+END
+
+CREATE PROCEDURE sp_GuardarTurno
+    @PacienteId INT,
+    @MedicoId INT,
+    @EspecialidadId INT,
+    @Fecha DATE,
+    @Hora TIME,
+    @Estado NVARCHAR(50),
+    @Observaciones NVARCHAR(MAX)
+AS
+BEGIN
+    INSERT INTO Turnos (PacienteId, MedicoId, EspecialidadId, Fecha, HoraInicio, Estado, Observaciones)
+    VALUES (@PacienteId, @MedicoId, @EspecialidadId, @Fecha, @Hora, @Estado, @Observaciones);
+END
+
+CREATE PROCEDURE [dbo].[sp_ActualizarTurno]
+    @TurnoId INT,
+    @Fecha DATE,
+    @HoraInicio TIME,
+    @Observaciones NVARCHAR(MAX),
+    @Estado NVARCHAR(50)
+AS
+BEGIN
+    -- Actualizar el turno en la tabla Turnos
+    UPDATE Turnos
+    SET 
+        Fecha = @Fecha,
+        HoraInicio = @HoraInicio,
+        Observaciones = @Observaciones,
+        Estado = @Estado
+    WHERE 
+        TurnoId = @TurnoId;
+
+    -- Verificar si se actualizó correctamente
+    IF @@ROWCOUNT = 0
+    BEGIN
+        RAISERROR('No se encontró el turno con el ID especificado.', 16, 1);
+        RETURN;
+    END
+END
+GO

@@ -47,53 +47,10 @@ namespace ClinicaMedica
             lblMensaje.Visible = true;
         }
 
-        protected void btnEditar_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            GridViewRow row = (GridViewRow)btn.NamingContainer;
-            int turnoId = Convert.ToInt32(gvTurnos.DataKeys[row.RowIndex].Value);
-
-            TurnoNegocio turnoNegocio = new TurnoNegocio();
-            Turno turno = turnoNegocio.ObtenerTurnoPorId(turnoId);
-
-            if (turno != null)
-            {
-                lblPacienteModal.Text = turno.Paciente.Nombre;
-                txtFechaModal.Text = turno.Fecha.ToString("yyyy-MM-dd");
-                txtHoraModal.Text = turno.HoraInicio.ToString(@"hh\:mm");
-                ddlEstadoModal.SelectedValue = turno.Estado.ToString();
-
-                hiddenTurnoId.Value = turnoId.ToString();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "openModal", "$('#modalEditarTurno').modal('show');", true);
-            }
-        }
-
-
-
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "closeModal", "$('#modalEditarTurno').modal('hide');", true);
         }
-
-        protected void btnGuardar_Click(object sender, EventArgs e)
-        {
-            int turnoId = int.Parse(hiddenTurnoId.Value);
-            TurnoNegocio turnoNegocio = new TurnoNegocio();
-            Turno turno = turnoNegocio.ObtenerTurnoPorId(turnoId);
-
-            if (turno != null)
-            {
-                turno.Fecha = DateTime.Parse(txtFechaModal.Text);
-                turno.HoraInicio = TimeSpan.Parse(txtHoraModal.Text);
-                //turno.Estado = ddlEstadoModal.SelectedValue;
-
-                //turnoNegocio.ActualizarTurno(turno);
-                CargarTurnos();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "closeModal", "$('#modalEditarTurno').modal('hide');", true);
-            }
-
-        }
-
 
         public bool EstaDentroDelHorario(TimeSpan horaSeleccionada, Especialidad especialidad)
         {
@@ -341,6 +298,214 @@ namespace ClinicaMedica
 
             // Recargar la GridView
             CargarTurnos();
+        }
+
+        protected void btnReprogramar_Click(object sender, EventArgs e)
+        {
+            // Obtener el ID del turno desde el CommandArgument
+            Button btn = (Button)sender;
+            int turnoId = Convert.ToInt32(btn.CommandArgument);
+
+            // Obtener el turno desde la base de datos
+            TurnoNegocio turnoNegocio = new TurnoNegocio();
+            Turno turno = turnoNegocio.ObtenerTurnoPorId(turnoId);
+
+            if (turno != null)
+            {
+                // Cargar los datos del turno en el modal
+                hiddenTurnoId.Value = turnoId.ToString();
+                txtFechaReprogramar.Text = turno.Fecha.ToString("yyyy-MM-dd");
+                txtObservacionReprogramar.Text = turno.Observaciones;
+
+                // Obtener los horarios disponibles para la fecha actual
+                List<TimeSpan> horariosDisponibles = turnoNegocio.ObtenerHorariosDisponibles(turno.Medico.MedicoId, turno.Fecha);
+
+                // Agregar el horario actual del turno a la lista de horarios disponibles
+                if (!horariosDisponibles.Contains(turno.HoraInicio))
+                {
+                    horariosDisponibles.Add(turno.HoraInicio);
+                }
+
+                // Limpiar el DropDownList antes de cargar nuevos datos
+                ddlHoraReprogramar.Items.Clear();
+
+                // Ordenar los horarios disponibles
+                horariosDisponibles.Sort();
+
+                // Cargar los horarios disponibles en el DropDownList
+                foreach (var hora in horariosDisponibles)
+                {
+                    ddlHoraReprogramar.Items.Add(new ListItem(hora.ToString(@"hh\:mm"), hora.ToString()));
+                }
+
+                // Seleccionar la hora actual del turno
+                ddlHoraReprogramar.SelectedValue = turno.HoraInicio.ToString();
+
+                // Abrir el modal usando JavaScript
+                string script = @"
+                $(document).ready(function() {
+                    $('#modalReprogramar').modal('show');
+                });";
+                ScriptManager.RegisterStartupScript(this, GetType(), "openModal", script, true);
+            }
+            else
+            {
+                MostrarError("No se pudo cargar el turno seleccionado.");
+            }
+        }
+
+        protected void txtFechaReprogramar_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obtener el ID del turno desde el HiddenField
+                int turnoId = int.Parse(hiddenTurnoId.Value);
+
+                // Obtener el turno desde la base de datos
+                TurnoNegocio turnoNegocio = new TurnoNegocio();
+                Turno turno = turnoNegocio.ObtenerTurnoPorId(turnoId);
+
+                if (turno == null)
+                {
+                    MostrarError("No se pudo encontrar el turno seleccionado.");
+                    return;
+                }
+
+                // Obtener la fecha seleccionada
+                DateTime fechaSeleccionada = DateTime.Parse(txtFechaReprogramar.Text);
+
+                // Obtener los horarios disponibles para el médico en la fecha seleccionada
+                List<TimeSpan> horariosDisponibles = turnoNegocio.ObtenerHorariosDisponibles(turno.Medico.MedicoId, fechaSeleccionada);
+
+                // Limpiar el DropDownList antes de cargar nuevos datos
+                ddlHoraReprogramar.Items.Clear();
+
+                // Cargar los horarios disponibles en el DropDownList
+                foreach (var hora in horariosDisponibles)
+                {
+                    ddlHoraReprogramar.Items.Add(new ListItem(hora.ToString(@"hh\:mm"), hora.ToString()));
+                }
+
+                // Habilitar el DropDownList de horas
+                ddlHoraReprogramar.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MostrarError("Error al cargar horarios disponibles: " + ex.Message);
+            }
+        }
+
+        protected void btnConfirmarReprogramar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obtener el ID del turno desde el HiddenField
+                int turnoId = int.Parse(hiddenTurnoId.Value);
+
+                // Obtener los nuevos valores del modal
+                DateTime nuevaFecha = DateTime.Parse(txtFechaReprogramar.Text);
+                TimeSpan nuevaHora = TimeSpan.Parse(ddlHoraReprogramar.SelectedValue);
+                string nuevaObservacion = txtObservacionReprogramar.Text;
+
+                // Validar que la nueva fecha no sea anterior a la fecha actual
+                if (nuevaFecha < DateTime.Today)
+                {
+                    MostrarError("La fecha seleccionada no puede ser anterior a la fecha actual.");
+                    return;
+                }
+
+                // Obtener el turno desde la base de datos
+                TurnoNegocio turnoNegocio = new TurnoNegocio();
+                Turno turno = turnoNegocio.ObtenerTurnoPorId(turnoId);
+
+                if (turno == null)
+                {
+                    MostrarError("No se pudo encontrar el turno seleccionado.");
+                    return;
+                }
+
+                // Actualizar el turno
+                turno.Fecha = nuevaFecha;
+                turno.HoraInicio = nuevaHora;
+                turno.Observaciones = nuevaObservacion;
+                turno.Estado = EstadoTurno.Reprogramado;
+
+                turnoNegocio.ActualizarTurno(turno);
+
+                // Cerrar el modal
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "closeModal", "$('#modalReprogramar').modal('hide');", true);
+
+                // Recargar la GridView para reflejar los cambios
+                CargarTurnos();
+
+                // Mostrar mensaje de éxito
+                MostrarMensaje("Turno reprogramado correctamente.", true);
+            }
+            catch (Exception ex)
+            {
+                MostrarError("Error al reprogramar el turno: " + ex.Message);
+            }
+        }
+
+        private void MostrarMensaje(string mensaje, bool esExito)
+        {
+            // Asignar el mensaje al Label
+            lblMensaje.Text = mensaje;
+
+            // Cambiar el estilo según el tipo de mensaje (éxito o error)
+            if (esExito)
+            {
+                lblMensaje.CssClass = "alert alert-success";
+            }
+            else
+            {
+                lblMensaje.CssClass = "alert alert-danger";
+            }
+
+            // Hacer visible el Label
+            lblMensaje.Visible = true;
+        }
+
+        protected void ValidarReprogramacion(object sender, EventArgs e)
+        {
+            bool esValido = true;
+
+            // Validación de Fecha
+            DateTime fechaSeleccionada;
+            if (DateTime.TryParse(txtFechaReprogramar.Text, out fechaSeleccionada))
+            {
+                if (fechaSeleccionada < DateTime.Today)
+                {
+                    lblErrorFecha.Text = "La fecha debe ser posterior a la actual.";
+                    lblErrorFecha.Visible = true;
+                    esValido = false;
+                }
+                else
+                {
+                    lblErrorFecha.Visible = false;
+                }
+            }
+
+            // Validación de Observación
+            if (string.IsNullOrWhiteSpace(txtObservacionReprogramar.Text))
+            {
+                lblErrorObservacion.Text = "La observación no puede estar vacía.";
+                lblErrorObservacion.Visible = true;
+                esValido = false;
+            }
+            else
+            {
+                lblErrorObservacion.Visible = false;
+            }
+
+            // Habilitar o deshabilitar el botón de confirmar
+            btnConfirmarReprogramar.Enabled = esValido;
+        }
+
+
+        protected void btnAltaTurno_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AltaTurno.aspx");
         }
     }
 }
