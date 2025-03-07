@@ -1,3 +1,5 @@
+E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\obj\Debug\Negocio.csproj.AssemblyReference.cache
+E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.cache
 E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\bin\Debug\Negocio.dll.config
 E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\bin\Debug\Negocio.dll
 E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\bin\Debug\Negocio.pdb
@@ -88,8 +90,6 @@ E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Ne
 E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\bin\Debug\tr\Microsoft.Data.SqlClient.resources.dll
 E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll
-E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\obj\Debug\Negocio.csproj.AssemblyReference.cache
-E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\obj\Debug\Negocio.csproj.CoreCompileInputs.cache
 E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\obj\Debug\Negocio.csproj.Up2Date
 E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\obj\Debug\Negocio.dll
 E:\Desktop\Pancho\Programación\UTN Tecnicatura\2023-02\Programacion III\2025\Negocio\obj\Debug\Negocio.pdb

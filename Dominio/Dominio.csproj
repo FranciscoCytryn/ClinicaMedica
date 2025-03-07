@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Especialidad.cs" />
     <Compile Include="EstadoTurno.cs" />
+    <Compile Include="InformeMedicosConTurnosCerrados.cs" />
+    <Compile Include="InformePacientesAtendidos.cs" />
     <Compile Include="Medico.cs" />
     <Compile Include="MedicoEspecialidad.cs" />
     <Compile Include="Paciente.cs" />

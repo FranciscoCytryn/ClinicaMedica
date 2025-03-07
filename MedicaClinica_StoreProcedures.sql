@@ -113,7 +113,7 @@ BEGIN
         p.Nombre AS NombrePaciente,
         t.Fecha,
         u.Nombre AS NombreMedico,
-        e.Nombre AS NombreEspecialidad,  -- Ahora solo se trae la especialidad específica del turno
+        e.Nombre AS NombreEspecialidad,  
         t.Estado,
         t.Observaciones,
         t.HoraInicio
@@ -121,8 +121,8 @@ BEGIN
     INNER JOIN Pacientes p ON t.PacienteId = p.PacienteId
     INNER JOIN Medicos m ON t.MedicoId = m.MedicoId
     INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId
-    INNER JOIN Especialidades e ON t.EspecialidadId = e.EspecialidadId  -- Relación directa con la especialidad del turno
-    ORDER BY t.Fecha DESC;  -- Ordena por Fecha de manera descendente
+    INNER JOIN Especialidades e ON t.EspecialidadId = e.EspecialidadId  
+    ORDER BY t.Fecha DESC;  
 END
 
 
@@ -164,33 +164,28 @@ CREATE PROCEDURE sp_EditarMedico
     @MedicoId INT,
     @Nombre NVARCHAR(100),
     @Email NVARCHAR(100),
-    @Telefono NVARCHAR(20),
-    @Especialidades NVARCHAR(MAX) 
+    @Telefono NVARCHAR(20)
 AS
 BEGIN
     BEGIN TRY
         BEGIN TRANSACTION;
 
         UPDATE Usuarios
-        SET Nombre = @Nombre,
+        SET 
+            Nombre = @Nombre,
             Email = @Email,
             Telefono = @Telefono
-        WHERE UsuarioId = (SELECT UsuarioId FROM Medicos WHERE MedicoId = @MedicoId);
-
-        DELETE FROM MedicoEspecialidad
-        WHERE MedicoId = @MedicoId;
-
-        INSERT INTO MedicoEspecialidad (MedicoId, EspecialidadId)
-        SELECT @MedicoId, value
-        FROM STRING_SPLIT(@Especialidades, ',');
+        WHERE 
+            UsuarioId = (SELECT UsuarioId FROM Medicos WHERE MedicoId = @MedicoId);
 
         COMMIT TRANSACTION;
     END TRY
     BEGIN CATCH
         ROLLBACK TRANSACTION;
+
         THROW;
     END CATCH;
-END
+END;
 
 CREATE PROCEDURE sp_BajaMedico
     @MedicoId INT
@@ -351,28 +346,6 @@ BEGIN
     INNER JOIN MedicoEspecialidad me ON m.MedicoId = me.MedicoId  
 END
 
-
-CREATE TRIGGER TRG_ValidarEspecialidadMedico
-ON Turnos
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    DECLARE @MedicoId INT, @EspecialidadId INT;
-
-    SELECT @MedicoId = MedicoId, @EspecialidadId = EspecialidadId FROM inserted;
-
-    IF NOT EXISTS (
-        SELECT 1 
-        FROM MedicoEspecialidad 
-        WHERE MedicoEspecialidad.MedicoId = @MedicoId 
-        AND MedicoEspecialidad.EspecialidadId = @EspecialidadId
-    )
-    BEGIN
-        RAISERROR('El médico no tiene asignada esta especialidad', 16, 1);
-        ROLLBACK TRANSACTION;
-    END
-END
-
 CREATE PROCEDURE ObtenerTurnoPorId
     @TurnoId INT
 AS
@@ -521,7 +494,7 @@ BEGIN
     INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId
     INNER JOIN MedicoEspecialidad me ON m.MedicoId = me.MedicoId
     WHERE me.EspecialidadId = @EspecialidadId
-      AND u.Activo = 1; -- Solo médicos activos
+      AND u.Activo = 1; 
 END
 
 CREATE PROCEDURE sp_VerificarDisponibilidadMedico
@@ -530,7 +503,6 @@ CREATE PROCEDURE sp_VerificarDisponibilidadMedico
     @Hora TIME
 AS
 BEGIN
-    -- Verificar si el médico tiene un turno en la misma fecha y hora
     IF EXISTS (
         SELECT 1
         FROM Turnos
@@ -539,11 +511,10 @@ BEGIN
           AND HoraInicio = @Hora
     )
     BEGIN
-        SELECT 0 AS Disponible; -- No disponible
+        SELECT 0 AS Disponible; 
     END
     ELSE
     BEGIN
-        -- Verificar si la hora está dentro del horario de trabajo del médico
         IF EXISTS (
             SELECT 1
             FROM TurnosTrabajo
@@ -552,11 +523,11 @@ BEGIN
               AND @Hora <= HoraSalida
         )
         BEGIN
-            SELECT 1 AS Disponible; -- Disponible
+            SELECT 1 AS Disponible;
         END
         ELSE
         BEGIN
-            SELECT 0 AS Disponible; -- No disponible
+            SELECT 0 AS Disponible; 
         END
     END
 END
@@ -582,7 +553,7 @@ BEGIN
     INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId
     WHERE t.MedicoId = @MedicoId
       AND t.Fecha = @Fecha
-      AND t.Estado NOT IN ('Cancelado', 'No Asistió'); -- Excluir turnos cancelados o no asistidos
+      AND t.Estado NOT IN ('Cancelado', 'No Asistió');
 END
 
 CREATE PROCEDURE sp_GuardarTurno
@@ -607,7 +578,6 @@ CREATE PROCEDURE [dbo].[sp_ActualizarTurno]
     @Estado NVARCHAR(50)
 AS
 BEGIN
-    -- Actualizar el turno en la tabla Turnos
     UPDATE Turnos
     SET 
         Fecha = @Fecha,
@@ -617,7 +587,6 @@ BEGIN
     WHERE 
         TurnoId = @TurnoId;
 
-    -- Verificar si se actualizó correctamente
     IF @@ROWCOUNT = 0
     BEGIN
         RAISERROR('No se encontró el turno con el ID especificado.', 16, 1);
@@ -625,3 +594,125 @@ BEGIN
     END
 END
 GO
+
+CREATE PROCEDURE [dbo].[sp_ListarTurnosPorMedico]
+    @MedicoId INT
+AS
+BEGIN
+    SELECT 
+        t.TurnoId, 
+        p.Nombre AS NombrePaciente,
+        t.Fecha,
+        u.Nombre AS NombreMedico,
+        e.Nombre AS NombreEspecialidad,  
+        t.Estado,
+        t.Observaciones,
+        t.HoraInicio
+    FROM Turnos t
+    INNER JOIN Pacientes p ON t.PacienteId = p.PacienteId
+    INNER JOIN Medicos m ON t.MedicoId = m.MedicoId
+    INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId
+    INNER JOIN Especialidades e ON t.EspecialidadId = e.EspecialidadId  
+    WHERE t.MedicoId = @MedicoId  
+    ORDER BY t.Fecha DESC;  
+END
+
+CREATE PROCEDURE [dbo].[sp_ObtenerPacientePorId]
+    @PacienteId INT
+AS
+BEGIN
+    SELECT 
+        Nombre,
+        Email
+    FROM Pacientes
+    WHERE PacienteId = @PacienteId AND Activo = 1;  
+END
+
+CREATE PROCEDURE sp_ActualizarTurnoTrabajo
+    @MedicoId INT,
+    @HoraEntrada TIME,
+    @HoraSalida TIME
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        IF EXISTS (SELECT 1 FROM TurnosTrabajo WHERE MedicoId = @MedicoId)
+        BEGIN
+            UPDATE TurnosTrabajo
+            SET 
+                HoraEntrada = @HoraEntrada,
+                HoraSalida = @HoraSalida
+            WHERE 
+                MedicoId = @MedicoId;
+        END
+        ELSE
+        BEGIN
+            INSERT INTO TurnosTrabajo (MedicoId, HoraEntrada, HoraSalida)
+            VALUES (@MedicoId, @HoraEntrada, @HoraSalida);
+        END
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+
+        THROW;
+    END CATCH;
+END;
+
+CREATE PROCEDURE sp_ObtenerPacientesAtendidos
+    @FechaInicio DATE,
+    @FechaFin DATE
+AS
+BEGIN
+    SELECT 
+        p.PacienteId,
+        p.Nombre AS PacienteNombre,
+        p.Email,
+        p.Telefono,
+        COUNT(t.TurnoId) AS CantidadAtenciones
+    FROM Pacientes p
+    INNER JOIN Turnos t ON p.PacienteId = t.PacienteId
+    WHERE t.Estado = 'Cerrado' 
+      AND t.Fecha BETWEEN @FechaInicio AND @FechaFin
+    GROUP BY p.PacienteId, p.Nombre, p.Email, p.Telefono
+    ORDER BY CantidadAtenciones DESC;
+END;
+
+CREATE PROCEDURE sp_ListarTurnosPorMedico
+    @FechaInicio DATE,
+    @FechaFin DATE
+AS
+BEGIN
+    SELECT 
+        m.MedicoId,
+        u.Nombre AS MedicoNombre,
+        COUNT(t.TurnoId) AS CantidadTurnos
+    FROM Turnos t
+    INNER JOIN Medicos m ON t.MedicoId = m.MedicoId
+    INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId
+    WHERE t.Fecha BETWEEN @FechaInicio AND @FechaFin
+    GROUP BY m.MedicoId, u.Nombre
+    ORDER BY CantidadTurnos DESC;
+END;
+
+
+CREATE PROCEDURE sp_ObtenerInformeMedicosConTurnosCerrados
+    @FechaInicio DATE,
+    @FechaFin DATE
+AS
+BEGIN
+    SELECT 
+        m.MedicoId,
+        u.Nombre AS MedicoNombre,
+        STRING_AGG(e.Nombre, ', ') AS Especialidades,
+        COUNT(t.TurnoId) AS CantidadTurnosCerrados
+    FROM Medicos m
+    INNER JOIN Usuarios u ON m.UsuarioId = u.UsuarioId
+    INNER JOIN MedicoEspecialidad me ON m.MedicoId = me.MedicoId
+    INNER JOIN Especialidades e ON me.EspecialidadId = e.EspecialidadId
+    LEFT JOIN Turnos t ON m.MedicoId = t.MedicoId AND t.Estado = 'Cerrado' AND t.Fecha BETWEEN @FechaInicio AND @FechaFin
+    WHERE u.Activo = 1 
+    GROUP BY m.MedicoId, u.Nombre;
+END;

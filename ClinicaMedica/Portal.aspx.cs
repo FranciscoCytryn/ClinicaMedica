@@ -33,7 +33,7 @@ namespace ClinicaMedica
             btnGestionUsuarios.Visible = Seguridad.EsAdmin(usuario) || Seguridad.EsRecepcionista(usuario);
             btnGestionTurnos.Visible = Seguridad.EsAdmin(usuario) || Seguridad.EsRecepcionista(usuario);
             btnInformes.Visible = Seguridad.EsAdmin(usuario) || Seguridad.EsRecepcionista(usuario);
-            btnTurnosAsignados.Visible = true;
+            btnTurnosAsignados.Visible = Seguridad.EsMedico(usuario);
         }
 
         protected void btnGestionUsuarios_Click(object sender, EventArgs e)

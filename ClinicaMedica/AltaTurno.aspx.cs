@@ -41,14 +41,12 @@ namespace ClinicaMedica
 
                 gestionPasos = new GestionPasos();
 
-                // Agregar los pasos
                 gestionPasos.AgregarPaso("Paciente");
                 gestionPasos.AgregarPaso("Especialidad");
                 gestionPasos.AgregarPaso("Medico");
                 gestionPasos.AgregarPaso("FechaHora");
-                gestionPasos.AgregarPaso("Observacion"); // Nuevo paso
+                gestionPasos.AgregarPaso("Observacion"); 
 
-                // Habilitar el primer paso (Paciente)
                 gestionPasos.HabilitarPaso("Paciente");
 
                 CargarPacientes();
@@ -60,7 +58,6 @@ namespace ClinicaMedica
 
         private void ActualizarControles()
         {
-            // Habilitar/deshabilitar controles según el estado de los pasos
             ddlPaciente.Enabled = gestionPasos.ObtenerPaso("Paciente").Habilitado;
             ddlEspecialidad.Enabled = gestionPasos.ObtenerPaso("Especialidad").Habilitado;
             ddlMedico.Enabled = gestionPasos.ObtenerPaso("Medico").Habilitado;
@@ -68,16 +65,12 @@ namespace ClinicaMedica
             ddlHora.Enabled = gestionPasos.ObtenerPaso("FechaHora").Habilitado;
             txtObservacion.Enabled = gestionPasos.ObtenerPaso("Observacion").Habilitado;
 
-            // Mostrar el botón "Volver al paso anterior" siempre que no estemos en el primer paso
             btnVolverPasoAnterior.Visible = !gestionPasos.ObtenerPaso("Paciente").Habilitado;
 
-            // Desactivar el botón "Nuevo Paciente" si el paso de paciente está deshabilitado
             btnNuevoPaciente.Enabled = gestionPasos.ObtenerPaso("Paciente").Habilitado;
 
-            // Habilitar el botón "Confirmar Turno" cuando el paso "Observacion" esté habilitado
             btnConfirmarTurno.Enabled = gestionPasos.ObtenerPaso("Observacion").Habilitado;
 
-            // Limpiar el mensaje de error
             lblMensaje.Visible = false;
             lblMensaje.Text = string.Empty;
         }
@@ -91,16 +84,15 @@ namespace ClinicaMedica
                 List<Paciente> listaPacientes = pacienteNegocio.Listar();
 
                 ddlPaciente.DataSource = listaPacientes;
-                ddlPaciente.DataTextField = "Nombre"; // Mostrar el nombre del paciente
-                ddlPaciente.DataValueField = "PacienteId"; // Valor asociado al ID del paciente
+                ddlPaciente.DataTextField = "Nombre";
+                ddlPaciente.DataValueField = "PacienteId"; 
                 ddlPaciente.DataBind();
 
-                // Agregar un ítem predeterminado
                 ddlPaciente.Items.Insert(0, new ListItem("Seleccione un paciente", "0"));
             }
             catch (Exception ex)
             {
-                MostrarError("Error al cargar los pacientes: " + ex.Message);
+                //MostrarError("Error al cargar los pacientes: " + ex.Message);
             }
         }
 
@@ -112,16 +104,15 @@ namespace ClinicaMedica
                 List<Especialidad> listaEspecialidades = especialidadNegocio.Listar();
 
                 ddlEspecialidad.DataSource = listaEspecialidades;
-                ddlEspecialidad.DataTextField = "Nombre"; // Mostrar el nombre de la especialidad
-                ddlEspecialidad.DataValueField = "EspecialidadId"; // Valor asociado al ID de la especialidad
+                ddlEspecialidad.DataTextField = "Nombre"; 
+                ddlEspecialidad.DataValueField = "EspecialidadId"; 
                 ddlEspecialidad.DataBind();
 
-                // Agregar un ítem predeterminado
                 ddlEspecialidad.Items.Insert(0, new ListItem("Seleccione una especialidad", "0"));
             }
             catch (Exception ex)
             {
-                MostrarError("Error al cargar las especialidades: " + ex.Message);
+                //MostrarError("Error al cargar las especialidades: " + ex.Message);
             }
         }
 
@@ -136,13 +127,10 @@ namespace ClinicaMedica
 
             if (pacienteId > 0)
             {
-                // Deshabilitar el paso actual (Paciente)
                 gestionPasos.DeshabilitarPaso("Paciente");
 
-                // Habilitar el siguiente paso (Especialidad)
                 gestionPasos.HabilitarPaso("Especialidad");
 
-                // Actualizar la interfaz de usuario
                 ActualizarControles();
             }
         }
@@ -153,16 +141,12 @@ namespace ClinicaMedica
 
             if (especialidadId > 0)
             {
-                // Deshabilitar el paso actual (Especialidad)
                 gestionPasos.DeshabilitarPaso("Especialidad");
 
-                // Habilitar el siguiente paso (Medico)
                 gestionPasos.HabilitarPaso("Medico");
 
-                // Cargar los médicos asociados a la especialidad seleccionada
                 CargarMedicosPorEspecialidad(especialidadId);
 
-                // Actualizar la interfaz de usuario
                 ActualizarControles();
             }
         }
@@ -175,22 +159,20 @@ namespace ClinicaMedica
                 List<Medico> listaMedicos = medicoNegocio.ListarMedicosPorEspecialidad(especialidadId);
 
                 ddlMedico.DataSource = listaMedicos;
-                ddlMedico.DataTextField = "Nombre"; // Mostrar el nombre del médico
-                ddlMedico.DataValueField = "MedicoId"; // Valor asociado al ID del médico
+                ddlMedico.DataTextField = "Nombre"; 
+                ddlMedico.DataValueField = "MedicoId"; 
                 ddlMedico.DataBind();
 
-                // Agregar un ítem predeterminado
                 ddlMedico.Items.Insert(0, new ListItem("Seleccione un médico", "0"));
             }
             catch (Exception ex)
             {
-                MostrarError("Error al cargar los médicos: " + ex.Message);
+                //MostrarError("Error al cargar los médicos: " + ex.Message); 
             }
         }
 
         protected void btnVolverPasoAnterior_Click(object sender, EventArgs e)
         {
-            // Obtener el paso actual
             string pasoActual = ObtenerPasoActual();
 
             if (pasoActual == null)
@@ -199,13 +181,11 @@ namespace ClinicaMedica
                 return;
             }
 
-            // Habilitar el paso anterior
             string pasoAnterior = gestionPasos.ObtenerPasoAnterior(pasoActual);
             if (pasoAnterior != null)
             {
                 gestionPasos.HabilitarPaso(pasoAnterior);
 
-                // Si volvemos al paso de selección de paciente, reactivar el botón "Nuevo Paciente"
                 if (pasoAnterior == "Paciente")
                 {
                     btnNuevoPaciente.Enabled = true;
@@ -231,30 +211,24 @@ namespace ClinicaMedica
 
             if (medicoId > 0)
             {
-                // Deshabilitar el paso actual (Medico)
                 gestionPasos.DeshabilitarPaso("Medico");
 
-                // Habilitar el siguiente paso (FechaHora)
                 gestionPasos.HabilitarPaso("FechaHora");
 
-                // Habilitar los controles de fecha y hora
                 txtFecha.Enabled = true;
                 ddlHora.Enabled = true;
 
-                // Actualizar la interfaz de usuario
                 ActualizarControles();
             }
         }
 
         private string ObtenerPasoActual()
         {
-            // Si todos los pasos están deshabilitados, el paso actual es el último paso completado ("FechaHora")
             if (!gestionPasos.Pasos.Any(p => p.Habilitado))
             {
                 return "FechaHora";
             }
 
-            // Determinar el paso actual basado en los controles habilitados
             if (txtFecha.Enabled)
             {
                 return "FechaHora";
@@ -272,14 +246,13 @@ namespace ClinicaMedica
                 return "Paciente";
             }
 
-            return null; // En caso de que no se encuentre un paso actual
+            return null; 
         }
 
         protected void btnConfirmarTurno_Click(object sender, EventArgs e)
         {
             try
             {
-                // Validar que todos los campos estén completos
                 if (ddlPaciente.SelectedValue == "0" || ddlEspecialidad.SelectedValue == "0" ||
                     ddlMedico.SelectedValue == "0" || string.IsNullOrEmpty(txtFecha.Text) ||
                     ddlHora.SelectedValue == "0" || string.IsNullOrEmpty(txtObservacion.Text))
@@ -288,7 +261,6 @@ namespace ClinicaMedica
                     return;
                 }
 
-                // Validar que la fecha no sea anterior a la fecha actual
                 DateTime fechaSeleccionada = DateTime.Parse(txtFecha.Text);
                 if (fechaSeleccionada < DateTime.Today)
                 {
@@ -296,7 +268,6 @@ namespace ClinicaMedica
                     return;
                 }
 
-                // Mostrar cuadro de confirmación
                 string confirmacionScript = $@"
                 if (confirm('¿Está seguro de que desea confirmar el turno?')) {{
                     document.getElementById('{btnConfirmarHidden.ClientID}').click();
@@ -309,24 +280,6 @@ namespace ClinicaMedica
             }
         }
 
-        private void LimpiarFormulario()
-        {
-            // Limpiar los controles del formulario
-            ddlPaciente.SelectedIndex = 0;
-            ddlEspecialidad.SelectedIndex = 0;
-            ddlMedico.SelectedIndex = 0;
-            txtFecha.Text = string.Empty;
-            ddlHora.SelectedIndex = 0;
-
-            // Deshabilitar los pasos posteriores
-            gestionPasos.DeshabilitarPaso("Especialidad");
-            gestionPasos.DeshabilitarPaso("Medico");
-            gestionPasos.DeshabilitarPaso("FechaHora");
-
-            // Actualizar la interfaz de usuario
-            ActualizarControles();
-        }
-
         public List<TimeSpan> ObtenerHorariosDisponibles(int medicoId, DateTime fecha)
         {
             List<TimeSpan> horariosDisponibles = new List<TimeSpan>();
@@ -335,20 +288,16 @@ namespace ClinicaMedica
 
             try
             {
-                // Obtener el horario de trabajo del médico
                 List<TurnoTrabajo> horarioTrabajo = medicoNegocio.ObtenerTurnosTrabajoPorMedico(medicoId);
 
-                // Obtener los turnos ya asignados al médico en la fecha seleccionada
                 List<Turno> turnosAsignados = turnoNegocio.ListarTurnosPorMedicoYFecha(medicoId, fecha);
 
-                // Generar horarios disponibles
                 foreach (var turnoTrabajo in horarioTrabajo)
                 {
                     TimeSpan horaActual = turnoTrabajo.HoraEntrada;
 
                     while (horaActual < turnoTrabajo.HoraSalida)
                     {
-                        // Verificar si el horario está ocupado
                         bool ocupado = turnosAsignados.Any(t => t.HoraInicio == horaActual);
 
                         if (!ocupado)
@@ -356,7 +305,6 @@ namespace ClinicaMedica
                             horariosDisponibles.Add(horaActual);
                         }
 
-                        // Incrementar la hora en intervalos de 30 minutos
                         horaActual = horaActual.Add(TimeSpan.FromMinutes(30));
                     }
                 }
@@ -379,22 +327,15 @@ namespace ClinicaMedica
                 TurnoNegocio turnoNegocio = new TurnoNegocio();
                 List<TimeSpan> horariosDisponibles = turnoNegocio.ObtenerHorariosDisponibles(medicoId, fecha);
 
-                // Limpiar el DropDownList antes de cargar nuevos datos
                 ddlHora.Items.Clear();
 
-                // Cargar los horarios disponibles en el DropDownList
                 foreach (var hora in horariosDisponibles)
                 {
                     ddlHora.Items.Add(new ListItem(hora.ToString(@"hh\:mm"), hora.ToString()));
                 }
 
-                // Habilitar el DropDownList de horas
                 ddlHora.Enabled = true;
 
-                // No deshabilitar el paso "FechaHora" aquí
-                // gestionPasos.DeshabilitarPaso("FechaHora"); // Eliminar esta línea
-
-                // Actualizar la interfaz de usuario
                 ActualizarControles();
             }
             catch (Exception ex)
@@ -407,13 +348,10 @@ namespace ClinicaMedica
         {
             if (ddlHora.SelectedValue != "0")
             {
-                // Deshabilitar el paso "FechaHora"
                 gestionPasos.DeshabilitarPaso("FechaHora");
 
-                // Habilitar el paso "Observacion"
                 gestionPasos.HabilitarPaso("Observacion");
 
-                // Actualizar la interfaz de usuario
                 ActualizarControles();
             }
         }
@@ -422,7 +360,6 @@ namespace ClinicaMedica
         {
             try
             {
-                // Crear un objeto Turno con los datos seleccionados
                 Turno turno = new Turno
                 {
                     PacienteId = Convert.ToInt32(ddlPaciente.SelectedValue),
@@ -440,14 +377,28 @@ namespace ClinicaMedica
                     Estado = EstadoTurno.Nuevo
                 };
 
-                // Guardar el turno en la base de datos
                 TurnoNegocio turnoNegocio = new TurnoNegocio();
                 turnoNegocio.GuardarTurno(turno);
 
-                // Mostrar mensaje de éxito
+                PacienteNegocio pacienteNegocio = new PacienteNegocio();
+                Paciente paciente = pacienteNegocio.ObtenerPacientePorId(turno.PacienteId);
+                string nombreEspecialidad = ddlEspecialidad.SelectedItem.Text;
+                string nombreMedico = ddlMedico.SelectedItem.Text;
+                EmailService emailService = new EmailService();
+                string asunto = emailService.CrearAsuntoConfirmacionTurno();
+                string cuerpo = emailService.CrearTemplateConfirmacionTurno(
+                    paciente.Nombre,
+                    turno.Fecha,
+                    turno.HoraInicio,
+                    nombreEspecialidad,
+                    nombreMedico,
+                    turno.Observaciones
+                );
+
+                emailService.EnviarCorreo(paciente.Email, asunto, cuerpo);
+
                 MostrarMensaje("Nuevo turno confirmado.", true);
 
-                // Redirigir a la página GestionTurnos.aspx
                 Response.Redirect("GestionTurnos.aspx");
             }
             catch (Exception ex)
@@ -459,21 +410,15 @@ namespace ClinicaMedica
         {
             if (esExito)
             {
-                // Mostrar mensaje de éxito como alert y redirigir
                 string script = $@"alert('{mensaje}'); window.location.href = 'GestionTurnos.aspx';";
                 ScriptManager.RegisterStartupScript(this, GetType(), "MensajeExito", script, true);
             }
             else
             {
-                // Mostrar mensaje de error en el Label
                 lblMensaje.Text = mensaje;
                 lblMensaje.Visible = true;
             }
         }
 
-        private void MostrarError(string mensaje)
-        {
-            // Implementa la lógica para mostrar un mensaje de error en la interfaz
-        }
     }
 }

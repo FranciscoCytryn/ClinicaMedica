@@ -96,24 +96,6 @@ namespace Negocio
             comando.Parameters.AddWithValue(nombre, valor);
         }
 
-        public object EjecutarEscalar(string consulta)
-        {
-            comando.Connection = conexion;
-            try
-            {
-                AbrirConexion();
-                return comando.ExecuteScalar();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al ejecutar la consulta escalar", ex);
-            }
-            finally
-            {
-                CerrarConexion();
-            }
-        }
-
         public object EjecutarStoredProcedure(string storedProcedure, SqlParameter[] parametros)
         {
             comando.Connection = conexion;

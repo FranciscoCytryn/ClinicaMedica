@@ -242,15 +242,12 @@ namespace Negocio
 
             try
             {
-                // Configurar el procedimiento almacenado y los parámetros
                 datos.SetearProcedimiento("sp_ListarTurnosPorMedicoYFecha");
                 datos.SetearParametro("@MedicoId", medicoId);
-                datos.SetearParametro("@Fecha", fecha.Date); // Usar solo la parte de la fecha (sin hora)
+                datos.SetearParametro("@Fecha", fecha.Date);
 
-                // Ejecutar la consulta
                 datos.EjecutarConsulta();
 
-                // Recorrer los resultados y crear objetos Turno
                 while (datos.Lector.Read())
                 {
                     Turno turno = new Turno
@@ -296,28 +293,21 @@ namespace Negocio
 
             try
             {
-                // Obtener el horario de trabajo del médico
                 List<TurnoTrabajo> horarioTrabajo = medicoNegocio.ObtenerTurnosTrabajoPorMedico(medicoId);
-
-                // Obtener los turnos ya asignados al médico en la fecha seleccionada
                 List<Turno> turnosAsignados = ListarTurnosPorMedicoYFecha(medicoId, fecha);
 
-                // Generar horarios disponibles
                 foreach (var turnoTrabajo in horarioTrabajo)
                 {
                     TimeSpan horaActual = turnoTrabajo.HoraEntrada;
 
                     while (horaActual < turnoTrabajo.HoraSalida)
                     {
-                        // Verificar si el horario está ocupado
                         bool ocupado = turnosAsignados.Any(t => t.HoraInicio == horaActual);
 
                         if (!ocupado)
                         {
                             horariosDisponibles.Add(horaActual);
                         }
-
-                        // Incrementar la hora en intervalos de 30 minutos
                         horaActual = horaActual.Add(TimeSpan.FromMinutes(30));
                     }
                 }
@@ -336,7 +326,6 @@ namespace Negocio
 
             try
             {
-                // Configurar el procedimiento almacenado y los parámetros
                 datos.SetearProcedimiento("sp_GuardarTurno");
                 datos.SetearParametro("@PacienteId", turno.PacienteId);
                 datos.SetearParametro("@MedicoId", turno.Medico.MedicoId);
@@ -346,7 +335,6 @@ namespace Negocio
                 datos.SetearParametro("@Estado", turno.Estado.ToString());
                 datos.SetearParametro("@Observaciones", turno.Observaciones);
 
-                // Ejecutar la consulta
                 datos.EjecutarAccion();
             }
             catch (Exception ex)
@@ -381,7 +369,103 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+        public List<Turno> ListarTurnosPorMedico(int medicoId)
+        {
+            List<Turno> listaTurnos = new List<Turno>();
+            AccesoDatos datos = new AccesoDatos();
 
+            try
+            {
+                datos.SetearProcedimiento("sp_ListarTurnosPorMedico");
+                datos.SetearParametro("@MedicoId", medicoId);
+                datos.EjecutarConsulta();
+
+                while (datos.Lector.Read())
+                {
+                    Turno turno = new Turno
+                    {
+                        TurnoId = (int)datos.Lector["TurnoId"],
+                        Paciente = new Paciente
+                        {
+                            Nombre = datos.Lector["NombrePaciente"].ToString()
+                        },
+                        Fecha = (DateTime)datos.Lector["Fecha"],
+                        Medico = new Medico
+                        {
+                            Usuario = new Usuario
+                            {
+                                Nombre = datos.Lector["NombreMedico"].ToString()
+                            },
+                        },
+                        Especialidad = new Especialidad
+                        {
+                            Nombre = datos.Lector["NombreEspecialidad"].ToString()
+                        },
+                        Estado = MapEstadoFromDB(datos.Lector["Estado"].ToString()),
+                        Observaciones = datos.Lector["Observaciones"].ToString()
+                    };
+
+                    if (!datos.Lector.IsDBNull(datos.Lector.GetOrdinal("HoraInicio")))
+                    {
+                        turno.HoraInicio = (TimeSpan)datos.Lector["HoraInicio"];
+                    }
+                    else
+                    {
+                        turno.HoraInicio = TimeSpan.Zero;
+                    }
+
+                    listaTurnos.Add(turno);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los turnos asignados al médico", ex);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+            return listaTurnos;
+        }
+
+        public List<InformeMedicosConTurnosCerrados> ObtenerInformeMedicosConTurnosCerrados(DateTime fechaInicio, DateTime fechaFin)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearProcedimiento("sp_ObtenerInformeMedicosConTurnosCerrados");
+                datos.SetearParametro("@FechaInicio", fechaInicio);
+                datos.SetearParametro("@FechaFin", fechaFin);
+                datos.EjecutarConsulta();
+
+                List<InformeMedicosConTurnosCerrados> resultados = new List<InformeMedicosConTurnosCerrados>();
+
+                while (datos.Lector.Read())
+                {
+                    InformeMedicosConTurnosCerrados item = new InformeMedicosConTurnosCerrados
+                    {
+                        MedicoId = (int)datos.Lector["MedicoId"],
+                        MedicoNombre = datos.Lector["MedicoNombre"].ToString(),
+                        Especialidades = datos.Lector["Especialidades"].ToString(),
+                        CantidadTurnosCerrados = (int)datos.Lector["CantidadTurnosCerrados"]
+                    };
+
+                    resultados.Add(item);
+                }
+
+                return resultados;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener el informe de médicos con turnos cerrados", ex);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
     }
 }
 

@@ -147,5 +147,76 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+
+        public Paciente ObtenerPacientePorId(int pacienteId)
+        {
+            Paciente paciente = null;
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearProcedimiento("sp_ObtenerPacientePorId");
+                datos.SetearParametro("@PacienteId", pacienteId);
+                datos.EjecutarConsulta();
+
+                if (datos.Lector.Read())
+                {
+                    paciente = new Paciente
+                    {
+                        Nombre = datos.Lector["Nombre"].ToString(),
+                        Email = datos.Lector["Email"].ToString()
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener el paciente por ID", ex);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+            return paciente;
+        }
+
+        public List<InformePacientesAtendidos> ObtenerPacientesAtendidos(DateTime fechaInicio, DateTime fechaFin)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearProcedimiento("sp_ObtenerPacientesAtendidos");
+                datos.SetearParametro("@FechaInicio", fechaInicio);
+                datos.SetearParametro("@FechaFin", fechaFin);
+                datos.EjecutarConsulta();
+
+                List<InformePacientesAtendidos> resultados = new List<InformePacientesAtendidos>();
+
+                while (datos.Lector.Read())
+                {
+                    InformePacientesAtendidos item = new InformePacientesAtendidos
+                    {
+                        PacienteId = (int)datos.Lector["PacienteId"],
+                        PacienteNombre = datos.Lector["PacienteNombre"].ToString(),
+                        Email = datos.Lector["Email"].ToString(),
+                        Telefono = datos.Lector["Telefono"].ToString(),
+                        CantidadAtenciones = (int)datos.Lector["CantidadAtenciones"]
+                    };
+
+                    resultados.Add(item);
+                }
+
+                return resultados;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener pacientes atendidos", ex);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
     }
 }
