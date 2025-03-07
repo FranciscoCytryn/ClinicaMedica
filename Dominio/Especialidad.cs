@@ -10,5 +10,7 @@ namespace Dominio
     {
         public int EspecialidadId { get; set; }
         public string Nombre { get; set; }
+        public TimeSpan HoraInicio { get; set; }
+        public TimeSpan HoraFin { get; set; }
     }
 }

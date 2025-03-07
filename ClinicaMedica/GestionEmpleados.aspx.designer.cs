@@ -11,7 +11,7 @@ namespace ClinicaMedica
 {
 
 
-    public partial class GestionTurnos
+    public partial class GestionEmpleados
     {
 
         /// <summary>
@@ -24,42 +24,6 @@ namespace ClinicaMedica
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
-        /// lblMensaje control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMensaje;
-
-        /// <summary>
-        /// btnAltaTurno control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAltaTurno;
-
-        /// <summary>
-        /// gvTurnos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvTurnos;
-
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-
-        /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
@@ -69,66 +33,111 @@ namespace ClinicaMedica
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
 
         /// <summary>
-        /// hiddenTurnoId control.
+        /// btnAbrirModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenTurnoId;
+        protected global::System.Web.UI.WebControls.Button btnAbrirModal;
 
         /// <summary>
-        /// txtFechaReprogramar control.
+        /// gvEmpleados control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaReprogramar;
+        protected global::System.Web.UI.WebControls.GridView gvEmpleados;
 
         /// <summary>
-        /// lblErrorFecha control.
+        /// txtNombreNuevo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorFecha;
+        protected global::System.Web.UI.WebControls.TextBox txtNombreNuevo;
 
         /// <summary>
-        /// ddlHoraReprogramar control.
+        /// rfvNombreNuevo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlHoraReprogramar;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNombreNuevo;
 
         /// <summary>
-        /// txtObservacionReprogramar control.
+        /// txtEmailNuevo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtObservacionReprogramar;
+        protected global::System.Web.UI.WebControls.TextBox txtEmailNuevo;
 
         /// <summary>
-        /// lblErrorObservacion control.
+        /// rfvEmailNuevo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorObservacion;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmailNuevo;
 
         /// <summary>
-        /// btnConfirmarReprogramar control.
+        /// revEmailNuevo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnConfirmarReprogramar;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmailNuevo;
+
+        /// <summary>
+        /// txtTelefonoNuevo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTelefonoNuevo;
+
+        /// <summary>
+        /// rfvTelefonoNuevo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTelefonoNuevo;
+
+        /// <summary>
+        /// txtPasswordNuevo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPasswordNuevo;
+
+        /// <summary>
+        /// rfvPasswordNuevo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPasswordNuevo;
+
+        /// <summary>
+        /// btnAltaEmpleado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAltaEmpleado;
     }
 }

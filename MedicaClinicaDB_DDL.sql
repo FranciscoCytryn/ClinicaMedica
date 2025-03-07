@@ -8,7 +8,7 @@ CREATE TABLE Usuarios (
     Nombre NVARCHAR(100) NOT NULL,
     Email NVARCHAR(100) NOT NULL UNIQUE,
     Password NVARCHAR(MAX) NOT NULL,
-    Rol NVARCHAR(50) NOT NULL CHECK (Rol IN ('Administrador', 'Recepcionista', 'Médico')),
+    Rol NVARCHAR(50) NOT NULL CHECK (Rol IN ('Administrador', 'Recepcionista', 'Mï¿½dico')),
     Telefono NVARCHAR(20)
 );
 
@@ -19,7 +19,7 @@ CREATE TABLE Especialidades (
 
 CREATE TABLE Medicos (
     MedicoId INT PRIMARY KEY IDENTITY(1,1),
-    UsuarioId INT UNIQUE, -- Relación 1 a 1 con Usuarios
+    UsuarioId INT UNIQUE, -- Relaciï¿½n 1 a 1 con Usuarios
     FOREIGN KEY (UsuarioId) REFERENCES Usuarios(UsuarioId)
 );
 
@@ -54,8 +54,25 @@ CREATE TABLE Turnos (
     MedicoId INT,
     Fecha DATE NOT NULL,
     HoraInicio TIME NOT NULL,
-    Estado NVARCHAR(50) NOT NULL CHECK (Estado IN ('Nuevo', 'Reprogramado', 'Cancelado', 'No Asistió', 'Cerrado')),
+    Estado NVARCHAR(50) NOT NULL CHECK (Estado IN ('Nuevo', 'Reprogramado', 'Cancelado', 'No Asistiï¿½', 'Cerrado')),
     Observaciones NVARCHAR(MAX),
     FOREIGN KEY (PacienteId) REFERENCES Pacientes(PacienteId),
     FOREIGN KEY (MedicoId) REFERENCES Medicos(MedicoId)
 );
+
+ALTER TABLE Turnos
+ADD EspecialidadId INT NULL;
+
+ALTER TABLE Turnos
+ADD CONSTRAINT FK_Turnos_Especialidades FOREIGN KEY (EspecialidadId)
+REFERENCES Especialidades(EspecialidadId);
+
+UPDATE Turnos
+SET EspecialidadId = (
+    SELECT TOP 1 EspecialidadId
+    FROM MedicoEspecialidad
+    WHERE MedicoEspecialidad.MedicoId = Turnos.MedicoId
+)
+WHERE EspecialidadId IS NULL;
+
+

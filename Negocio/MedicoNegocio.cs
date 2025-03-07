@@ -34,7 +34,8 @@ namespace Negocio
                             Telefono = datos.Lector["Telefono"].ToString(),
                             Activo = (bool)datos.Lector["Activo"]
                         },
-                        Especialidades = ObtenerEspecialidadesPorMedico((int)datos.Lector["MedicoId"]) 
+                        Especialidades = ObtenerEspecialidadesPorMedico((int)datos.Lector["MedicoId"]),
+                        TurnosTrabajo = ObtenerTurnosTrabajoPorMedico((int)datos.Lector["MedicoId"])
                     };
 
                     medicos.Add(medico);
@@ -51,6 +52,42 @@ namespace Negocio
 
             return medicos;
         }
+
+        public List<TurnoTrabajo> ObtenerTurnosTrabajoPorMedico(int medicoId)
+        {
+            List<TurnoTrabajo> turnosTrabajo = new List<TurnoTrabajo>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearProcedimiento("sp_ObtenerTurnosTrabajoPorMedico");
+                datos.SetearParametro("@MedicoId", medicoId);
+                datos.EjecutarConsulta();
+
+                while (datos.Lector.Read())
+                {
+                    TurnoTrabajo turno = new TurnoTrabajo
+                    {
+                        TurnoTrabajoId = (int)datos.Lector["TurnoTrabajoId"],
+                        HoraEntrada = (TimeSpan)datos.Lector["HoraEntrada"],
+                        HoraSalida = (TimeSpan)datos.Lector["HoraSalida"]
+                    };
+
+                    turnosTrabajo.Add(turno);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener turnos de trabajo", ex);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+            return turnosTrabajo;
+        }
+
 
         public void AltaMedico(Medico medico)
         {
@@ -249,6 +286,50 @@ namespace Negocio
 
             return medico;
         }
+
+        public List<Medico> ListarMedicosPorEspecialidad(int especialidadId)
+        {
+            List<Medico> medicos = new List<Medico>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                // Configurar el procedimiento almacenado y el parámetro
+                datos.SetearProcedimiento("sp_ListarMedicosPorEspecialidad");
+                datos.SetearParametro("@EspecialidadId", especialidadId);
+
+                // Ejecutar la consulta
+                datos.EjecutarConsulta();
+
+                // Recorrer los resultados y crear objetos Medico
+                while (datos.Lector.Read())
+                {
+                    Medico medico = new Medico
+                    {
+                        MedicoId = (int)datos.Lector["MedicoId"],
+                        Usuario = new Usuario
+                        {
+                            Nombre = datos.Lector["Nombre"].ToString()
+                        },
+                        Especialidades = ObtenerEspecialidadesPorMedico((int)datos.Lector["MedicoId"]),
+                        TurnosTrabajo = ObtenerTurnosTrabajoPorMedico((int)datos.Lector["MedicoId"])
+                    };
+
+                    medicos.Add(medico);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar médicos por especialidad", ex);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
+            return medicos;
+        }
+
     }
 }
 

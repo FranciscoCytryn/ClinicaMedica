@@ -19,10 +19,11 @@ namespace ClinicaMedica
                 {
                     Usuario usuario = (Usuario)Session["usuario"];
                     MostrarDatosUsuario(usuario);
-                    
+
                     if (Seguridad.EsMedico(usuario))
                     {
                         MostrarEspecialidades(usuario.UsuarioId);
+                        MostrarHorarioTrabajo(usuario.UsuarioId);
                     }
                 }
                 else
@@ -47,6 +48,18 @@ namespace ClinicaMedica
 
             pnlEspecialidades.Visible = true;
             lblEspecialidades.Text = string.Join(", ", especialidades);
+        }
+
+        private void MostrarHorarioTrabajo(int usuarioId)
+        {
+            MedicoNegocio medicoNegocio = new MedicoNegocio();
+            List<TurnoTrabajo> turnosTrabajo = medicoNegocio.ObtenerTurnosTrabajoPorMedico(usuarioId);
+
+            if (turnosTrabajo != null && turnosTrabajo.Count > 0)
+            {
+                pnlHorarioTrabajo.Visible = true;
+                lblHorarioTrabajo.Text = string.Join("<br />", turnosTrabajo.Select(t => $"{t.HoraEntrada:hh\\:mm} - {t.HoraSalida:hh\\:mm}"));
+            }
         }
     }
 }
